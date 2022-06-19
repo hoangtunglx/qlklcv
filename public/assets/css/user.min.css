@@ -1,0 +1,15 @@
+a:hover {
+	text-decoration: none !important;
+}
+
+.fa-icon-wait {
+	opacity: 1 !important;
+}
+
+.choices .choices__list--dropdown .choices__item--selectable {
+	font-size:0.8rem !important;
+}
+
+.choices .choices__list--multiple .choices__item {
+	font-size:0.6rem !important;
+}
