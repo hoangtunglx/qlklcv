@@ -17,7 +17,7 @@ class BoMon extends Model
 	protected $fillable = [
 		'MaBoMon', 'MaKhoa', 'TenBoMon',
 	];
-	//Cập nhật
+	
 	public function Khoa()
 	{
 		return $this->belongsTo(Khoa::class, 'MaKhoa', 'MaKhoa');
