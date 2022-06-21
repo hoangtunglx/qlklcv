@@ -12,8 +12,9 @@
 				<div class="col-lg-8">
 					<nav style="--falcon-breadcrumb-divider:'»';" aria-label="breadcrumb">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}"><i class="fad fa-home-alt"></i></a></li>
-							<li class="breadcrumb-item"><a href="{{ route('dashboard.danhmuc.home') }}">Danh mục</a></li>
+							<li class="breadcrumb-item"><a ><i class="fad fa-home-alt"></i></a></li>
+							{{-- href="{{ route('dashboard.danhmuc.home') }}" --}}
+							<li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Quản trị hệ thống</a></li>
 							<li class="breadcrumb-item active" aria-current="page">Người dùng</li>
 						</ol>
 					</nav>
@@ -51,18 +52,16 @@
 								<td class="align-middle font-monospace">{{ $value->username }}</td>
 								<td class="align-middle">{{ $value->email }}</td>
 								<td class="align-middle small">
-									@if($value->privilege == "superadmin")
+									@if($value->privilege == "admin")
 										<span class="badge rounded-pill bg-danger">Toàn quyền</span>
-									@elseif($value->privilege == "qldanhmuc")
-										<span class="badge rounded-pill bg-warning">QL Danh mục</span>
-									@elseif($value->privilege == "qlbaiviet")
-										<span class="badge rounded-pill bg-success">QL Bài viết</span>
-									@elseif($value->privilege == "qlcuusinhvien")
-										<span class="badge rounded-pill bg-info">QL Cựu sinh viên</span>
-									@elseif($value->privilege == "qldaotao")
-										<span class="badge rounded-pill bg-primary">QL Đào tạo</span>
-									@else
-										<span class="badge rounded-pill bg-secondary">Cán bộ nhân viên</span>
+									@elseif($value->privilege == "supmanager")
+										<span class="badge rounded-pill bg-warning">QL Kê khai</span>
+									@elseif($value->privilege == "manager")
+										<span class="badge rounded-pill bg-success">Duyệt kê khai</span>
+									@elseif($value->privilege == "statistic")
+										<span class="badge rounded-pill bg-info">Thống kê</span>
+									@elseif($value->privilege == "user")
+										<span class="badge rounded-pill bg-secondary">Cán bộ giảng viên</span>									
 									@endif
 								</td>
 								<td class="align-middle small">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('d/m/Y H:i:s') }}</td>
@@ -76,8 +75,7 @@
 			</div>
 		</div>
 	</div>
-	
-	<form action="{{ route('dashboard.danhmuc.nguoidung.them') }}" method="post" class="needs-validation" novalidate>
+	<form action="{{ route('admin.taikhoan.them') }}" method="post" class="needs-validation" novalidate>
 		@csrf
 		<div class="modal fade" id="myModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="myModalLabel">
 			<div class="modal-dialog modal-dialog-centered">
@@ -126,12 +124,11 @@
 							<label class="form-label" for="privilege"><span class="badge bg-info">6</span> Quyền hạn người dùng <span class="text-danger fw-bold">*</span></label>
 							<select class="form-select @error('privilege') is-invalid @enderror" id="privilege" name="privilege" required>
 								<option value="">-- Quyền hạn --</option>
-								<option value="superadmin">Toàn quyền</option>
-								<option value="qldanhmuc">Quản lý danh mục</option>
-								<option value="qlbaiviet" selected>Quản lý bài viết</option>
-								<option value="qlcuusinhvien">Quản lý cựu sinh viên</option>
-								<option value="qldaotao">Quản lý đào tạo</option>
-								<option value="nhanvien">Cán bộ nhân viên</option>
+								<option value="admin">Toàn quyền</option>
+								<option value="supmanager">Quản lý kê khai</option>
+								<option value="manager" selected>Duyệt kê khai</option>
+								<option value="statistic">Thống kê</option>
+								<option value="user">Cán bộ giảng viên</option>
 							</select>
 							@error('privilege')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
@@ -145,8 +142,7 @@
 			</div>
 		</div>
 	</form>
-	
-	<form action="{{ route('dashboard.danhmuc.nguoidung.sua') }}" method="post" class="needs-validation" novalidate>
+	<form action="{{ route('admin.taikhoan.sua') }}" method="post" class="needs-validation" novalidate>
 		@csrf
 		<input type="hidden" id="id_edit" name="id_edit" value="" />
 		<div class="modal fade" id="myModalEdit" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="myModalLabelEdit">
@@ -196,12 +192,11 @@
 							<label class="form-label" for="privilege_edit"><span class="badge bg-info">6</span> Quyền hạn người dùng <span class="text-danger fw-bold">*</span></label>
 							<select class="form-select @error('privilege_edit') is-invalid @enderror" id="privilege_edit" name="privilege_edit" required>
 								<option value="">-- Quyền hạn --</option>
-								<option value="superadmin">Toàn quyền</option>
-								<option value="qldanhmuc">Quản lý danh mục</option>
-								<option value="qlbaiviet">Quản lý bài viết</option>
-								<option value="qlcuusinhvien">Quản lý cựu sinh viên</option>
-								<option value="qldaotao">Quản lý đào tạo</option>
-								<option value="nhanvien">Cán bộ nhân viên</option>
+								<option value="admin">Toàn quyền</option>
+								<option value="supmanager">Quản lý kê khai</option>
+								<option value="manager" selected>Duyệt kê khai</option>
+								<option value="statistic">Thống kê</option>
+								<option value="user">Cán bộ giảng viên</option>
 							</select>
 							@error('privilege_edit')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
@@ -215,8 +210,7 @@
 			</div>
 		</div>
 	</form>
-	
-	<form action="{{ route('dashboard.danhmuc.nguoidung.xoa') }}" method="post" class="needs-validation" novalidate>
+	<form action="{{ route('admin.taikhoan.xoa') }}" method="post" class="needs-validation" novalidate>
 		@csrf
 		<input type="hidden" id="id_delete" name="id_delete" value="" />
 		<div class="modal fade" id="myModalDelete" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="myModalLabelDelete">

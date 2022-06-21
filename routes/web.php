@@ -26,6 +26,8 @@ use App\Http\Controllers\QuyDoiGiamDinhMucController;
 use App\Http\Controllers\QuyDoiGioChuanController;
 use App\Http\Controllers\QuyDoiHeSoController;
 use App\Http\Controllers\TaiKhoanController;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 
 // Trang chủ
 Route::get('/', [HomeController::class, 'getHome'])->name('home');

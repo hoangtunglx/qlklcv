@@ -26,4 +26,3 @@ class KeKhaiGiamDinhMuc extends Model
 		return $this->belongsTo(QuyDoiGiamDinhMuc::class, 'ID_QuyDoiGiamDinhMuc', 'ID');
 	}
 }
-}
