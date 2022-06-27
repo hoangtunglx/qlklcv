@@ -29,7 +29,6 @@ class NganhController extends Controller
         $orm->MaKhoa = $request->MaKhoa;
 		$orm->save();
 		
-		// return redirect()->route('dashboard.admin.nguoidung');
 		return redirect()->route('supmanager.nganh');
 	}
     public function postSua(Request $request)
@@ -41,21 +40,19 @@ class NganhController extends Controller
             'MaKhoa_edit' => ['required', 'string', 'max:191'],
 		]);
 		
-		$orm = Nganh::where('MaNganh',$request->id_edit)->first();
+		$orm = Nganh::find($request->id_edit);
 		$orm->MaNganh = $request->MaNganh_edit;
 		$orm->TenNganh = $request->TenNganh_edit;
         $orm->MaKhoa = $request->MaKhoa_edit;
 		$orm->save();
 		
-		// return redirect()->route('dashboard.admin.nguoidung');
 		return redirect()->route('supmanager.nganh');
 	}
     public function postXoa(Request $request)
 	{
-		$orm = Nganh::where('MaNganh',$request->MaNganh_delete)->first();
+		$orm = Nganh::find($request->MaNganh_delete);
 		$orm->delete();
 		
-		// return redirect()->route('dashboard.admin.taikhoan');
 		return redirect()->route('supmanager.nganh');
 	}
 }

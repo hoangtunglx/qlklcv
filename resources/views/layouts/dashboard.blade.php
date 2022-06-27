@@ -22,8 +22,13 @@
 	<link rel="stylesheet" href="{{ asset('public/vendors/choices/choices.min.css') }}" />
 	<link rel="stylesheet" href="{{ asset('public/vendors/fontawesome/5.14.0/css/all.min.css') }}" />
 	<link rel="stylesheet" href="{{ asset('public/assets/css/theme390.min.css') }}" id="style-default" />
+	{{-- select2 --}}
+	{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" /> --}}
+	
 	@yield('css')
 	<link rel="stylesheet" href="{{ asset('public/assets/css/user.min.css') }}" id="user-style-default" />
+	{{-- <script src="{{ asset('public/js/select2.js') }}"></script> --}}
 </head>
 
 <body>
@@ -446,6 +451,7 @@
 	<script src="{{ asset('public/vendors/anchorjs/anchor.min.js') }}"></script>
 	<script src="{{ asset('public/vendors/is/is.min.js') }}"></script>
 	<script src="{{ asset('public/vendors/choices/choices.min.js') }}"></script>
+
 	@yield('javascript')
 	<script src="{{ asset('public/assets/js/theme390.js') }}"></script>
 </body>

@@ -61,7 +61,6 @@ class TaiKhoanController extends Controller
 		$orm->privilege = $request->privilege_edit;
 		$orm->save();
 		
-		// return redirect()->route('dashboard.admin.nguoidung');
 		return redirect()->route('admin.taikhoan');
 	}
 	
@@ -70,7 +69,6 @@ class TaiKhoanController extends Controller
 		$orm = TaiKhoan::find($request->id_delete);
 		$orm->delete();
 		
-		// return redirect()->route('dashboard.admin.taikhoan');
 		return redirect()->route('admin.taikhoan');
 	}
 	

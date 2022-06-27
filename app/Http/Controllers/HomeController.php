@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TaiKhoan;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite as FacadesSocialite;
 use Socialite;
+
+use function GuzzleHttp\Psr7\str;
 
 class HomeController extends Controller
 {
@@ -50,7 +55,7 @@ class HomeController extends Controller
 			return redirect()->route('login')->with('warning', 'Phải sử dụng email của AGU!');
 		}
 		
-		$existingUser = SYS_NguoiDung::where('email', $user->email)
+		$existingUser = TaiKhoan::where('email', $user->email)
 			->first();
 		if($existingUser)
 		{

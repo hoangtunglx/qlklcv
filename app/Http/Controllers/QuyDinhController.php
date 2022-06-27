@@ -38,7 +38,6 @@ class QuyDinhController extends Controller
 		$orm->NgayDongKeKhai = $request->NgayDongKeKhai_edit;
 		$orm->save();
 		
-		// return redirect()->route('dashboard.admin.nguoidung');
 		return redirect()->route('admin.quydinh');
 	}
 }

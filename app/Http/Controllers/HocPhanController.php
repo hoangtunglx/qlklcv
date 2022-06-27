@@ -34,7 +34,6 @@ class HocPhanController extends Controller
             $orm->SoTietThucHanh = $request->SoTietThucHanh;
 		$orm->save();
 		
-		// return redirect()->route('dashboard.admin.nguoidung');
 		return redirect()->route('supmanager.hocphan');
 	}
 	public function postSua(Request $request)
@@ -48,7 +47,7 @@ class HocPhanController extends Controller
 			'SoTietThucHanh_edit' => ['required','numeric']
 		]);
 		
-		$orm = HocPhan::where('MaHocPhan',$request->id_edit)->first();
+		$orm = HocPhan::find($request->id_edit);
 		$orm->MaHocPhan = $request->MaHocPhan_edit;
 		$orm->TenHocPhan = $request->TenHocPhan_edit;
 		$orm->SoTinChi = $request->SoTinChi_edit;
@@ -56,15 +55,13 @@ class HocPhanController extends Controller
 		$orm->SoTietThucHanh = $request->SoTietThucHanh_edit;
 		$orm->save();
 		
-		// return redirect()->route('dashboard.admin.nguoidung');
 		return redirect()->route('supmanager.hocphan');
 	}
 	public function postXoa(Request $request)
 	{
-		$orm =HocPhan::where('MaHocPhan',$request->MaHocPhan_delete)->first();
+		$orm =HocPhan::find($request->MaHocPhan_delete);
 		$orm->delete();
 		
-		// return redirect()->route('dashboard.admin.taikhoan');
 		return redirect()->route('supmanager.hocphan');
 	}
 }

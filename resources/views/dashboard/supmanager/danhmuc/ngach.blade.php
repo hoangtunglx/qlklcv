@@ -131,14 +131,14 @@
 							@enderror
 						</div>
                         <div class="mb-3">
-							<label class="form-label" for="DinhMucGiangDay_edit"><span class="badge bg-info">2</span> Định mức giảng dạy <span class="text-danger fw-bold">*</span></label>
+							<label class="form-label" for="DinhMucGiangDay_edit"><span class="badge bg-info">3</span> Định mức giảng dạy <span class="text-danger fw-bold">*</span></label>
 							<input type="text" class="form-control @error('DinhMucGiangDay_edit') is-invalid @enderror" id="DinhMucGiangDay_edit" name="DinhMucGiangDay_edit" value="{{ old('DinhMucGiangDay_edit') }}" required />
 							@error('DinhMucGiangDay_edit')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
 							@enderror
 						</div>
                         <div class="mb-3">
-							<label class="form-label" for="DinhMucNCKH_edit"><span class="badge bg-info">2</span> Định mức nghiên cứu khoa học <span class="text-danger fw-bold">*</span></label>
+							<label class="form-label" for="DinhMucNCKH_edit"><span class="badge bg-info">4</span> Định mức nghiên cứu khoa học <span class="text-danger fw-bold">*</span></label>
 							<input type="text" class="form-control @error('DinhMucNCKH_edit') is-invalid @enderror" id="DinhMucNCKH_edit" name="DinhMucNCKH_edit" value="{{ old('DinhMucNCKH_edit') }}" required />
 							@error('DinhMucNCKH_edit')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>

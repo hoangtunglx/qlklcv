@@ -29,7 +29,6 @@ class NgachController extends Controller
         $orm->DinhMucNCKH = $request->DinhMucNCKH;
 		$orm->save();
 		
-		// return redirect()->route('dashboard.admin.nguoidung');
 		return redirect()->route('supmanager.ngach');
 	}
     public function postSua(Request $request)
@@ -42,22 +41,20 @@ class NgachController extends Controller
             'DinhMucNCKH_edit' => ['required', 'numeric', 'min:0']
 		]);
 		
-		$orm = Ngach::where('MaNgach',$request->id_edit)->first();
+		$orm = Ngach::find($request->id_edit);
 		$orm->MaNgach = $request->MaNgach_edit;
 		$orm->DienGiai = $request->DienGiai_edit;
         $orm->DinhMucGiangDay = $request->DinhMucGiangDay_edit;
 		$orm->DinhMucNCKH = $request->DinhMucNCKH_edit;
 		$orm->save();
 		
-		// return redirect()->route('dashboard.admin.nguoidung');
 		return redirect()->route('supmanager.ngach');
 	}
 	public function postXoa(Request $request)
 	{
-		$orm = Ngach::where('MaNgach',$request->MaNgach_delete)->first();
+		$orm = Ngach::find($request->MaNgach_delete);
 		$orm->delete();
 		
-		// return redirect()->route('dashboard.admin.taikhoan');
 		return redirect()->route('supmanager.ngach');
 	}
 }

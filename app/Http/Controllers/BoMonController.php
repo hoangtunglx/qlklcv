@@ -20,7 +20,7 @@ class BoMonController extends Controller
 		$this->validate($request, [
             'MaBoMon' => ['required', 'string', 'max:5', 'unique:bomon'],
 			'TenBoMon' => ['required', 'string', 'max:191','unique:bomon,TenBoMon'],
-            'MaKhoa' => ['required', 'string', 'max:191']
+            'MaKhoa' => ['required', 'string', 'max:5']
 		]);
 		
 		$orm = new BoMon();
@@ -38,10 +38,10 @@ class BoMonController extends Controller
 		$this->validate($request, [
             'MaBoMon_edit' => ['required', 'string', 'max:5', 'unique:bomon,MaBoMon,'. $request->id_edit.',MaBoMon'],
 			'TenBoMon_edit' => ['required', 'string', 'max:191','unique:bomon,TenBoMon,'. $request->id_edit.',MaBoMon'],
-            'MaKhoa_edit' => ['required', 'string', 'max:191'],
+            'MaKhoa_edit' => ['required', 'string', 'max:5'],
 		]);
 		
-		$orm = BoMon::where('MaBoMon',$request->id_edit)->first();
+		$orm = BoMon::find($request->id_edit);
 		$orm->MaBoMon = $request->MaBoMon_edit;
 		$orm->TenBoMon = $request->TenBoMon_edit;
         $orm->MaKhoa = $request->MaKhoa_edit;
@@ -52,7 +52,7 @@ class BoMonController extends Controller
 	}
     public function postXoa(Request $request)
 	{
-		$orm = BoMon::where('MaBoMon',$request->MaBoMon_delete)->first();
+		$orm = BoMon::find($request->MaBoMon_delete);
 		$orm->delete();
 		
 		// return redirect()->route('dashboard.admin.taikhoan');

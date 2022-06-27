@@ -25,7 +25,6 @@ class KhoaController extends Controller
 		$orm->TenKhoa = $request->TenKhoa;
 		$orm->save();
 		
-		// return redirect()->route('dashboard.admin.nguoidung');
 		return redirect()->route('supmanager.khoa');
 	}
     public function postSua(Request $request)
@@ -41,15 +40,13 @@ class KhoaController extends Controller
 		$orm->TenKhoa = $request->TenKhoa_edit;
 		$orm->save();
 		
-		// return redirect()->route('dashboard.admin.nguoidung');
 		return redirect()->route('supmanager.khoa');
 	}
 	public function postXoa(Request $request)
 	{
-		$orm = Khoa::where('MaKhoa',$request->MaKhoa_delete)->first();
+		$orm = Khoa::find($request->MaKhoa_delete);
 		$orm->delete();
 		
-		// return redirect()->route('dashboard.admin.taikhoan');
 		return redirect()->route('supmanager.khoa');
 	}
 }
