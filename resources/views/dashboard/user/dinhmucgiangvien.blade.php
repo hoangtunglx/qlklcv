@@ -14,7 +14,7 @@
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a ><i class="fad fa-home-alt"></i></a></li>
 							{{-- href="{{ route('dashboard.danhmuc.home') }}" --}}
-							<li class="breadcrumb-item"><a href="{{ route('supmanager.home') }}">Phòng đào tạo</a></li>
+							<li class="breadcrumb-item"><a href="{{ route('supmanager.home') }}">Giảng viên</a></li>
 							<li class="breadcrumb-item active" aria-current="page">Định mức của giảng viên</li>
 						</ol>
 					</nav>
@@ -28,31 +28,28 @@
 			<h5 class="mb-0">Định mức của giảng viên</h5>
 		</div>
 		<div class="card-body pb-0">
-			{{-- <p><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalThem"><i class="fal fa-plus"></i> Thêm</button></p> --}}
+			<p><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalThem"><i class="fal fa-plus"></i> Thêm</button></p>
 			<div class="table-responsive scrollbar">
 				<table id="DataList" class="table table-bordered table-hover table-sm overflow-hidden">
 					<thead>
 						<tr>
 							<th class="text-nowrap" width="5%">#</th>
-                            <th class="text-nowrap" width="15%">Mã giảng viên</th>
-							<th class="text-nowrap" width="15%">Họ và tên</th>
 							<th class="text-nowrap" width="20%">Định mức giảng dạy</th>
                             <th class="text-nowrap" width="20%" title="Định mức nghiên cứu khoa học">Định mức NCKH</th>
-                            <th class="text-nowrap" width="15%">Năm học</th>
-							{{-- <th class="text-nowrap" width="5%">Sửa</th>
-							<th class="text-nowrap" width="5%">Xóa</th> --}}
+                            <th class="text-nowrap" width="20%">Năm học</th>
+							<th class="text-nowrap" width="5%">Sửa</th>
+							<th class="text-nowrap" width="5%">Xóa</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($dinhmucgiangvien as $value)
 							<tr>
 								<td class="align-middle">{{ $loop->iteration }}</td>
-								<td class="align-middle">{{ $value->MaGiangVien}}</td>
-								<td class="align-middle">{{ $value->GiangVien->HoVaTen }}</td>
 								<td class="align-middle">{{ $value->DinhMucGiangDay }}</td>
 								<td class="align-middle">{{ $value->DinhMucNCKH }}</td>
 								<td class="align-middle">{{ $value->NamHoc }}</td>
-								
+								<td class="align-middle text-center"><a href="#sua" data-bs-toggle="modal" data-bs-target="#myModalEdit" onclick="getCapNhat('{{ $value->ID }}',{{$value->DinhMucGiangDay}},{{$value->DinhMucNCKH}},'{{$value->NamHoc}}'); return false;"><i class="fal fa-edit"></i></a></td>
+								<td class="align-middle text-center pe-1"><a href="#xoa" data-bs-toggle="modal" data-bs-target="#myModalDelete" onclick="getXoa('{{ $value->ID }}'); return false;"><i class="fal fa-trash-alt text-danger"></i></a></td>
 							</tr>
 						@endforeach
 					</tbody>
@@ -60,7 +57,7 @@
 			</div>
 		</div>
 	</div>
-	{{-- <form action="{{ route('supmanager.dinhmucgiangvien.them') }}" method="post" class="needs-validation" novalidate>
+<form action="{{ route('user.dinhmucgiangvien.them') }}" method="post" class="needs-validation" novalidate>
 		@csrf
 		<div class="modal fade" id="myModalThem" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="myModalLabel">
 			<div class="modal-dialog modal-dialog-centered">
@@ -71,25 +68,20 @@
 					</div>
 					<div class="modal-body">
 						<div class="mb-3">
-							<label class="form-label" for="MaGiangVien"><span class="badge bg-info">1</span> Bộ môn <span class="text-danger fw-bold">*</span></label>
-							<select class="form-select @error('MaGiangVien') is-invalid @enderror" id="MaGiangVien" name="MaGiangVien" required>
-								<option value="">-- Chọn bộ môn --</option>
-                                @foreach($bomon as $value)
-								<option value="{{$value->MaGiangVien}}" {{ old('MaGiangVien') == $value->MaGiangVien ? "selected" : "" }}>{{$value->MaGiangVien}}</option>
-								@endforeach
-							</select>
-							@error('MaGiangVien')
+							<label class="form-label" for="DinhMucGiangDay"><span class="badge bg-info">1</span> Định mức giảng dạy<span class="text-danger fw-bold">*</span></label>
+							<input type="number" class="form-control @error('DinhMucGiangDay') is-invalid @enderror" id="DinhMucGiangDay" name="DinhMucGiangDay" value="{{ old('DinhMucGiangDay') }}" required />
+							@error('DinhMucGiangDay')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
 							@enderror
 						</div>	
 						<div class="mb-3">
-							<label class="form-label" for="TongDinhMuc"><span class="badge bg-info">2</span> Tổng định mức <span class="text-danger fw-bold">*</span></label>
-							<input type="number" class="form-control @error('TongDinhMuc') is-invalid @enderror" id="TongDinhMuc" name="TongDinhMuc" value="{{ old('TongDinhMuc') }}" required />
-							@error('TongDinhMuc')
+							<label class="form-label" for="DinhMucNCKH"><span class="badge bg-info">2</span> Định mức nghiên cứu khoa học <span class="text-danger fw-bold">*</span></label>
+							<input type="number" class="form-control @error('DinhMucNCKH') is-invalid @enderror" id="DinhMucNCKH" name="DinhMucNCKH" value="{{ old('DinhMucNCKH') }}" required />
+							@error('DinhMucNCKH')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
 							@enderror
 						</div>
-						<div class="mb-3">
+						<div class="mb-0">
 							<label class="form-label" for="NamHoc"><span class="badge bg-info">3</span> Năm học <span class="text-danger fw-bold">*</span></label>
 							<input type="text" class="form-control @error('NamHoc') is-invalid @enderror" id="NamHoc" name="NamHoc" value="{{ old('NamHoc') }}" required />
 							@error('NamHoc')
@@ -104,9 +96,9 @@
 			</div>
 		</div>
 	</form>
-	<form action="{{ route('supmanager.dinhmucgiangvien.sua') }}" method="post" class="needs-validation" novalidate>
+	<form action="{{ route('user.dinhmucgiangvien.sua') }}" method="post" class="needs-validation" novalidate>
 		@csrf
-		<input type="hidden" id="id_edit" name="id_edit" value="" />
+		<input type="hidden" id="ID_edit" name="ID_edit" value="" />
 		<div class="modal fade" id="myModalEdit" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="myModalLabelEdit">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
@@ -116,32 +108,21 @@
 					</div>
 					<div class="modal-body">
 						<div class="mb-3">
-							<label class="form-label" for="MaGiangVien_edit"><span class="badge bg-info">1</span> Giảng viên <span class="text-danger fw-bold">*</span></label>
-							<select class="form-select @error('MaGiangVien_edit') is-invalid @enderror" id="MaGiangVien_edit" name="MaGiangVien_edit" required>
-								<option value="">-- Chọn giảng viên --</option>
-                                @foreach($giangvien as $value)
-								<option value="{{$value->MaGiangVien}}" {{ old('MaGiangVien') == $value->MaGiangVien ? "selected" : "" }}>{{$value->HoVaTen}}</option>
-								@endforeach
-							</select>
-							@error('MaGiangVien_edit')
+							<label class="form-label" for="DinhMucGiangDay_edit"><span class="badge bg-info">1</span> Định mức giảng dạy <span class="text-danger fw-bold">*</span></label>
+							<input type="number" class="form-control @error('DinhMucGiangDay_edit') is-invalid @enderror" id="DinhMucGiangDay_edit" name="DinhMucGiangDay_edit" value="{{ old('DinhMucGiangDay_edit') }}" required />
+							@error('DinhMucGiangDay_edit')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
 							@enderror
 						</div>	
 						<div class="mb-3">
-							<label class="form-label" for="TongDinhMuc_edit"><span class="badge bg-info">2</span> Định mức giảng dạy <span class="text-danger fw-bold">*</span></label>
-							<input type="number" class="form-control @error('TongDinhMuc_edit') is-invalid @enderror" id="TongDinhMuc_edit" name="TongDinhMuc_edit" value="{{ old('TongDinhMuc_edit') }}" required />
-							@error('TongDinhMuc_edit')
-								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-							@enderror
-						</div>
-						<div class="mb-3">
-							<label class="form-label" for="DinhMucNCKH_edit"><span class="badge bg-info">3</span> Định mức nghiên cứu khoa học <span class="text-danger fw-bold">*</span></label>
-							<input type="number" class="form-control @error('NamHoc_edit') is-invalid @enderror" id="NamHoc_edit" name="NamHoc_edit" value="{{ old('NamHoc_edit') }}" required />
+							<label class="form-label" for="DinhMucNCKH_edit"><span class="badge bg-info">2</span> Định mức nghiên cứu khoa học  <span class="text-danger fw-bold">*</span></label>
+							<input type="number" class="form-control @error('DinhMucNCKH_edit') is-invalid @enderror" id="DinhMucNCKH_edit" name="DinhMucNCKH_edit" value="{{ old('DinhMucNCKH_edit') }}" required />
 							@error('DinhMucNCKH_edit')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
 							@enderror
-						</div>	<div class="mb-3">
-							<label class="form-label" for="NamHoc_edit"><span class="badge bg-info">4</span> Năm học <span class="text-danger fw-bold">*</span></label>
+						</div>
+						<div class="mb-0">
+							<label class="form-label" for="NamHoc_edit"><span class="badge bg-info">3</span> Năm học <span class="text-danger fw-bold">*</span></label>
 							<input type="text" class="form-control @error('NamHoc_edit') is-invalid @enderror" id="NamHoc_edit" name="NamHoc_edit" value="{{ old('NamHoc_edit') }}" required />
 							@error('NamHoc_edit')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
@@ -156,14 +137,14 @@
 			</div>
 		</div>
 	</form>
-	<form action="{{ route('supmanager.dinhmucgiangvien.xoa') }}" method="post" class="needs-validation" novalidate>
+	<form action="{{ route('user.dinhmucgiangvien.xoa') }}" method="post" class="needs-validation" novalidate>
 		@csrf
 		<input type="hidden" id="ID_delete" name="ID_delete"/>
 		<div class="modal fade" id="myModalDelete" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="myModalLabelDelete">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="myModalLabelDelete">Xóa Định mức của giảng viên</h5>
+						<h5 class="modal-title" id="myModalLabelDelete">Xóa định mức của giảng viên</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body fw-bold text-danger text-center">
@@ -177,15 +158,15 @@
 				</div>
 			</div>
 		</div>
-	</form> --}}
+	</form>
 @endsection
 	
 @section('javascript')
 	<script>
-		function getCapNhat(ID, MaGiangVien, TongDinhMuc, NamHoc) {
-			$('#id_edit').val(ID);
-            $('#MaGiangVien_edit').val(MaGiangVien);
-            $('#TongDinhMuc_edit').val(TongDinhMuc);
+		function getCapNhat(ID, DinhMucGiangDay, DinhMucNCKH, NamHoc) {
+			$('#ID_edit').val(ID);
+            $('#DinhMucGiangDay_edit').val(DinhMucGiangDay);
+            $('#DinhMucNCKH_edit').val(DinhMucNCKH);
 			$('#NamHoc_edit').val(NamHoc);
 		}
 		
@@ -193,12 +174,12 @@
 			$('#ID_delete').val(id);
 		}
 		
-		@if($errors->has('ID') || $errors->has('MaGiangVien')|| $errors->has('TongDinhMuc')|| $errors->has('NamHoc'))
+		@if($errors->has('ID') || $errors->has('DinhMucGiangDay')|| $errors->has('DinhMucNCKH')|| $errors->has('NamHoc'))
 			var myModalThem = new bootstrap.Modal(document.getElementById('myModalThem'));
 			myModalThem.show();
 		@endif
 		
-		@if($errors->has('ID_edit') || $errors->has('MaGiangVien_edit')|| $errors->has('TongDinhMuc_edit')|| $errors->has('NamHoc_edit'))
+		@if($errors->has('ID_edit') || $errors->has('DinhMucGiangDay_edit')|| $errors->has('DinhMucNCKH_edit')|| $errors->has('NamHoc_edit'))
 			var myModalEdit = new bootstrap.Modal(document.getElementById('myModalEdit'));
 			myModalEdit.show();
 		@endif

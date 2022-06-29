@@ -7,7 +7,7 @@
 @section('content')
 	<div class="row flex-center min-vh-100 text-center">
 		<div class="col-sm-10 col-md-8 col-lg-6 col-xxl-5">
-			<a class="d-flex flex-center mb-3" href="{{ route('dashboard.home') }}">
+			<a class="d-flex flex-center mb-3" href="{{ route('home') }}">
 				<img src="{{ asset('public/assets/img/logos/agu.png') }}" width="58" />
 			</a>
 			<div class="card">

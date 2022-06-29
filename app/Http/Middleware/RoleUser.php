@@ -17,8 +17,10 @@ class RoleUser
 	 */
 	public function handle(Request $request, Closure $next)
 	{
-		if(Auth::user()->privilege == "user")
-			return $next($request);
+		// if(Auth::user()->privilege == "user")
+		// 	return $next($request);
+		if(Auth::check())
+		 	return $next($request);
 		else
 			abort(403);
 	}

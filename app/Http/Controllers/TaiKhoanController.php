@@ -38,8 +38,7 @@ class TaiKhoanController extends Controller
 		$orm->password = Hash::make($request->password);
 		$orm->privilege = $request->privilege;
 		$orm->save();
-		
-		// return redirect()->route('dashboard.admin.nguoidung');
+	
 		return redirect()->route('admin.taikhoan');
 	}
 	

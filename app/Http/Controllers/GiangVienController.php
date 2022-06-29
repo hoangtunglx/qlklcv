@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\BoMon;
 use App\Models\GiangVien;
 use App\Models\Ngach;
+use App\Models\TaiKhoan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class GiangVienController extends Controller
 {
@@ -34,6 +36,16 @@ class GiangVienController extends Controller
         $orm->MaBoMon = $request->MaBoMon;
         $orm->MaNgach = $request->MaNgach;
 		$orm->save();
+
+		//Khi thêm giảng viên đồng thời thêm tài khoản (privilege)
+		// $orm = new TaiKhoan();
+		// $orm->name = $request->HoVaTen;
+		// $orm->username = $request->username;
+		// $orm->email = $request->Email;
+		// $orm->password = Hash::make('password');
+		// $orm->privilege = $request->privilege;
+		// $orm->save();
+
 		return redirect()->route('supmanager.giangvien');
 	}
     public function postSua(Request $request)
