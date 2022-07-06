@@ -413,8 +413,8 @@
 						<li class="nav-item">
 							<div class="theme-control-toggle fa-icon-wait px-2">
 								<input class="form-check-input ms-0 theme-control-toggle-input" id="themeControlToggle" type="checkbox" data-theme-control="theme" value="dark" />
-								<label class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Tắt chế độ ban đêm"><span class="far fa-fw fa-sun fs-0"></span></label>
-								<label class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Chế độ ban đêm"><span class="far fa-fw fa-moon fs-0"></span></label>
+								<label class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Tắt chế độ ban đêm"><span class="">🌜</span></label>
+								<label class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Chế độ ban đêm"><span >🌞</span></label>
 							</div>
 						</li>
 						<li class="nav-item dropdown">

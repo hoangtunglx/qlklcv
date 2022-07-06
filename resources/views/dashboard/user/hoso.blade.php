@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('pagetitle')
-    Thông tin cơ bản
+Thông tin giảng viên
 @endsection
 
 @section('content')
@@ -13,9 +13,9 @@
                 <div class="col-lg-8">
                     <nav style="--falcon-breadcrumb-divider:'»';" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            {{-- <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}"><i class="fad fa-home-alt"></i></a></li> --}}
-                            {{-- <li class="breadcrumb-item"><a href="{{ route('dashboard.hosonhanvien.home') }}">Hồ sơ nhân viên</a></li> --}}
-                            <li class="breadcrumb-item active" aria-current="page">Thông tin cơ bản</li>
+                            <li class="breadcrumb-item"><a href="{{ route(Auth::user()->privilege.'.home') }}"><i class="fad fa-home-alt"></i></a></li>
+                            <li class="breadcrumb-item"><a >Giảng viên</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Thông tin giảng viên</li>
                         </ol>
                     </nav>
                 </div>
@@ -25,7 +25,7 @@
 
     <div class="card mb-0">
         <div class="card-header bg-light">
-            <h5 class="mb-0">Thông tin cơ bản</h5>
+            <h5 class="mb-0">Thông tin giảng viên</h5>
         </div>
         <div class="card-body">
             @if (session('success'))
@@ -46,7 +46,7 @@
                 <div class="container ">
 					<div class="row">	
 						<div class="col-12 mb-3  d-flex justify-content-center align-items-center">
-							<label class="form-label" for="MaGiangVien_edit"> Mã giảng viên: {{ $giangvien->MaGiangVien }} </label>
+							<label class="form-label" for="MaGiangVien_edit" style="font-size: 18px"> Mã giảng viên: {{ $giangvien->MaGiangVien }} </label>
 						</div>
 					</div>
 					<div class="row pt-1">

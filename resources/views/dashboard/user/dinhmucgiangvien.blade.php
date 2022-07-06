@@ -14,7 +14,7 @@
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a ><i class="fad fa-home-alt"></i></a></li>
 							{{-- href="{{ route('dashboard.danhmuc.home') }}" --}}
-							<li class="breadcrumb-item"><a href="{{ route('supmanager.home') }}">Giảng viên</a></li>
+							<li class="breadcrumb-item"><a href="{{ route(Auth::user()->privilege.'.home') }}">Giảng viên</a></li>
 							<li class="breadcrumb-item active" aria-current="page">Định mức của giảng viên</li>
 						</ol>
 					</nav>

@@ -7,4 +7,5 @@ use Illuminate\Http\Request;
 class KeKhaiGiangDayController extends Controller
 {
     //
+    // getDanhSach_User
 }
