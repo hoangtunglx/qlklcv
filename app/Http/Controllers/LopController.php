@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Khoa;
 use App\Models\Lop;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LopController extends Controller
 {
     //
     public function getDanhSach()
 	{
-		$lop = Lop::all();
+		$lop = Lop::paginate(getSoDong());
         $khoa=Khoa::all();
 		return view('dashboard.supmanager.danhmuc.lop', compact('lop','khoa'));
 	}
@@ -55,5 +56,46 @@ class LopController extends Controller
 		$orm = Lop::find($request->MaLop_delete);
 		$orm->delete();
 		return redirect()->route('supmanager.lop');
+	}
+	public function postNhap_SupManager(Request $request)
+	{
+		try
+		{
+			$import = new Lop();
+			$import->import($request->file('file_excel'));
+			
+			if(count($import->failures()) > 0)
+			{
+				$messages = 'Các dòng bị lỗi:';
+				foreach($import->failures() as $failure)
+				{
+					$messages .= '<br />Dòng: <b>' . $failure->row() . '</b>';
+					$messages .= '; Thuộc tính: <b>' . $failure->attribute() . '</b>';
+					$messages .= '; Lỗi: <b>' . implode('</b>, <b>', $failure->errors()) . '</b>';
+				}
+				return redirect()->route('supmanager.lop')->with('warning', $messages);
+			}
+			else
+			{
+				return redirect()->route('supmanager.lop')->with('success', 'Đã nhập dữ liệu thành công!');
+			}
+		}
+		catch(\Maatwebsite\Excel\Validators\ValidationException $e)
+		{
+			$failures = $e->failures();
+			$messages = 'Các dòng bị lỗi:';
+			foreach($failures as $failure)
+			{
+				$messages .= '<br />Dòng: <b>' . $failure->row() . '</b>';
+				$messages .= '; Thuộc tính: <b>' . $failure->attribute() . '</b>';
+				$messages .= '; Lỗi: <b>' . implode('</b>, <b>', $failure->errors()) . '</b>';
+			}
+			return redirect()->route('supmanager.lop')->with('warning', $messages);
+		}
+	}
+	
+	public function getXuat_SupManager()
+	{
+		return Excel::download(new Lop(), 'lop.xlsx');
 	}
 }

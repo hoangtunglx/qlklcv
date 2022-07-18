@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('pagetitle')
-	Kê khai giảng dạy
+	Kê khai giảm định mức
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
 							<li class="breadcrumb-item"><a ><i class="fad fa-home-alt"></i></a></li>
 							{{-- href="{{ route('dashboard.danhmuc.home') }}" --}}
 							<li class="breadcrumb-item"><a href="{{ route('supmanager.home') }}">Giảng viên</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Kê khai giảng dạy</li>
+							<li class="breadcrumb-item active" aria-current="page">Kê khai giảm định mức</li>
 						</ol>
 					</nav>
 				</div>
@@ -25,7 +25,7 @@
 	
 	<div class="card mb-0">
 		<div class="card-header bg-light">
-			<h5 class="mb-0">Kê khai giảng dạy</h5>
+			<h5 class="mb-0">Kê khai giảm định mức</h5>
 		</div>
 		<div class="card-body pb-0">
 			<p><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalThem"><i class="fal fa-plus"></i> Thêm</button></p>
@@ -34,10 +34,7 @@
 					<thead>
 						<tr>
 							<th class="text-nowrap" width="5%">#</th>
-                            <th class="text-nowrap" width="20%">Mã học phần</th>
-							<th class="text-nowrap" width="10%">Nhóm</th>
-							<th class="text-nowrap" width="10%">Lớp</th>
-							<th class="text-nowrap" width="15%">Học kỳ</th>
+                            <th class="text-nowrap" width="20%">Quy đổi giờ chuẩn</th>
 							<th class="text-nowrap" width="15%">Năm học</th>
 							<th class="text-nowrap" width="5%">Sửa</th>
 							<th class="text-nowrap" width="5%">Xóa</th>
@@ -66,10 +63,10 @@
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="myModalLabel">Thêm kê khai giảng dạy</h5>
+						<h5 class="modal-title" id="myModalLabel">Thêm kê khai giảm định mức</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<div class="modal-body">
+					{{-- <div class="modal-body">
 						<div class="mb-3">
 							<label class="form-label" for="MaLop"><span class="badge bg-info">1</span> Mã lớp <span class="text-danger fw-bold">*</span></label>
 							<input type="text" class="form-control @error('MaLop') is-invalid @enderror" id="MaLop" name="MaLop" value="{{ old('MaLop') }}" required />
@@ -95,15 +92,15 @@
 							<label class="form-label" for="MaKhoa"><span class="badge bg-info">4</span> Khoa <span class="text-danger fw-bold">*</span></label>
 							<select class="form-select @error('MaKhoa') is-invalid @enderror" id="MaKhoa" name="MaKhoa" required>
 								<option value="">-- Chọn Học Phần --</option>
-                                {{-- @foreach($khoa as $value)
+                                @foreach($khoa as $value)
 								<option value="{{$value->MaKhoa}}" {{ old('MaKhoa') == $value->MaKhoa ? "selected" : "" }}>{{$value->TenKhoa}}</option>
-								@endforeach --}}
+								@endforeach
 							</select>
 							@error('MaKhoa')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
 							@enderror
 						</div>			
-					</div>
+					</div> --}}
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary"><i class="fal fa-save"></i> Thực hiện</button>
 					</div>

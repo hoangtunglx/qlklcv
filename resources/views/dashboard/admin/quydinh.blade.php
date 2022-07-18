@@ -32,7 +32,6 @@
 				<table id="DataList" class="table table-bordered table-hover table-sm overflow-hidden">
 					<thead>
 						<tr>
-							<th class="text-nowrap" width="5%">#</th>
 							<th class="text-nowrap" width="20%">Năm học hiện tại</th>
 							<th class="text-nowrap" width="20%">Ngày mở kê khai</th>
 							<th class="text-nowrap" width="20%">Ngày đóng kê khai</th>
@@ -40,27 +39,24 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($quydinh as $value)
-							<tr>
-								<td class="align-middle">{{ $loop->iteration }}</td>
-								<td class="align-middle">
-									<a title="Click để cập nhật 'Năm Học'" href="#suanamhoc" data-bs-toggle="modal" data-bs-target="#myModalEditNamHoc" onclick="getCapNhatNamHoc('{{ $value->NamHocHienTai }}', '{{ $value->NgayMoKeKhai}}', '{{ $value->NgayDongKeKhai}}' ); return false;">{{ $value->NamHocHienTai }}</a>
-									
-								</td>
-								<td class="align-middle">
-									<a title="Click để cập nhật 'Ngày Mở Kê Khai'" href="#suangaymokekhai" data-bs-toggle="modal" data-bs-target="#myModalEditThoiGian" onclick="getCapNhatThoiGian('{{ $value->NamHocHienTai }}', '{{ $value->NgayMoKeKhai}}', '{{ $value->NgayDongKeKhai}}' ); return false;">
-										{{ Carbon\Carbon::createFromFormat('Y-m-d', $value->NgayMoKeKhai)->format('d/m/Y') }}
-									</a>
-									
-								</td>
-								<td class="align-middle">
-									<a title="Click để cập nhật 'Ngày Đóng Kê Khai'" href="#suangaydongkekhai" data-bs-toggle="modal" data-bs-target="#myModalEditThoiGian" onclick="getCapNhatThoiGian('{{ $value->NamHocHienTai }}', '{{ $value->NgayMoKeKhai}}', '{{ $value->NgayDongKeKhai}}' ); return false;">
-										{{ Carbon\Carbon::createFromFormat('Y-m-d', $value->NgayDongKeKhai)->format('d/m/Y') }}
-									</a>
-								</td>
-								<td class="align-middle">{{ $value->SoLuongDongTrenMotTrang }}</td>
-							</tr>
-						@endforeach
+						<tr>
+							<td class="align-middle">
+								<a title="Click để cập nhật 'Năm Học'" href="#suanamhoc" data-bs-toggle="modal" data-bs-target="#myModalEditNamHoc" onclick="getCapNhatNamHoc('{{ $quydinh->NamHocHienTai }}', '{{ $quydinh->NgayMoKeKhai}}', '{{ $quydinh->NgayDongKeKhai}}' ); return false;">{{ $quydinh->NamHocHienTai }}</a>
+								
+							</td>
+							<td class="align-middle">
+								<a title="Click để cập nhật 'Ngày Mở Kê Khai'" href="#suangaymokekhai" data-bs-toggle="modal" data-bs-target="#myModalEditThoiGian" onclick="getCapNhatThoiGian('{{ $quydinh->NamHocHienTai }}', '{{ $quydinh->NgayMoKeKhai}}', '{{ $quydinh->NgayDongKeKhai}}' ); return false;">
+									{{ Carbon\Carbon::createFromFormat('Y-m-d', $quydinh->NgayMoKeKhai)->format('d/m/Y') }}
+								</a>
+								
+							</td>
+							<td class="align-middle">
+								<a title="Click để cập nhật 'Ngày Đóng Kê Khai'" href="#suangaydongkekhai" data-bs-toggle="modal" data-bs-target="#myModalEditThoiGian" onclick="getCapNhatThoiGian('{{ $quydinh->NamHocHienTai }}', '{{ $quydinh->NgayMoKeKhai}}', '{{ $quydinh->NgayDongKeKhai}}' ); return false;">
+									{{ Carbon\Carbon::createFromFormat('Y-m-d', $quydinh->NgayDongKeKhai)->format('d/m/Y') }}
+								</a>
+							</td>
+							<td class="align-middle">{{ $quydinh->SoLuongDongTrenMotTrang }}</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>

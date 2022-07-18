@@ -17,7 +17,7 @@ class CreateQuyDinhTable extends Migration
 			$table->string('NamHocHienTai', 9)->default('2021-2022');
 			$table->date('NgayMoKeKhai')->default('2022-06-01');
 			$table->date('NgayDongKeKhai')->default('2022-06-30');
-			$table->unsignedTinyInteger('SoLuongDongTrenMotTrang')->default(50);
+			$table->unsignedTinyInteger('SoLuongDongTrenMotTrang')->default(1);
 			$table->timestamp('created_at')->useCurrent();
 			$table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 		});

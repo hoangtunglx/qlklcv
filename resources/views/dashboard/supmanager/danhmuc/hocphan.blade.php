@@ -63,6 +63,9 @@
 					</tbody>
 				</table>
 			</div>
+			<div class="mt-1">
+				{{ $hocphan->links() }}
+			</div>
 		</div>
 	</div>
 	<form action="{{ route('supmanager.hocphan.them') }}" method="post" class="needs-validation" novalidate>

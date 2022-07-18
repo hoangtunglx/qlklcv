@@ -28,7 +28,34 @@
 			<h5 class="mb-0">Bộ môn</h5>
 		</div>
 		<div class="card-body pb-0">
-			<p><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalThem"><i class="fal fa-plus"></i> Thêm</button></p>
+			<form action="{{ route('supmanager.bomon.khoa') }}" method="POST">
+				@csrf
+				<div class="row g-3 align-items-center mb-3">
+					<div class="col-auto">
+						<label class="col-form-label" for="MaKhoa"> Khoa </label>
+					</div>
+					<div class="col-auto">
+						<select class="form-select  @error('MaKhoa') is-invalid @enderror" id="MaKhoa" name="MaKhoa" required>
+							<option value="">-- Chọn Khoa --</option>
+							@foreach($khoa as $value)
+							<option value="{{$value->MaKhoa}}" {{$makhoa==$value->MaKhoa?'selected':''}}>{{$value->TenKhoa}}</option>
+							@endforeach
+						</select>
+						@error('MaKhoa')
+							<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+						@enderror
+					</div>
+					<div class="col-auto">
+						<button type="submit" class="btn btn-danger">Xác nhận</button>
+					</div>
+					
+				</div>	
+			</form>
+			<p>
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalThem"><i class="fal fa-plus"></i> Thêm</button>
+				<a href="#nhap" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#importModal"><i class="fal fa-upload"></i> Nhập từ Excel</a>
+				<a href="{{route('supmanager.bomon.xuat')}}" class="btn btn-success"><i class="fal fa-download"></i> Xuất ra Excel</a>
+			</p>
 			<div class="table-responsive scrollbar">
 				<table id="DataList" class="table table-bordered table-hover table-sm overflow-hidden">
 					<thead>
@@ -55,8 +82,12 @@
 					</tbody>
 				</table>
 			</div>
+			<div class="mt-1">		
+				{{ $bomon->links() }}
+			</div>
 		</div>
 	</div>
+	
 	<form action="{{ route('supmanager.bomon.them') }}" method="post" class="needs-validation" novalidate>
 		@csrf
 		<div class="modal fade" id="myModalThem" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="myModalLabel">
@@ -163,6 +194,29 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fal fa-times"></i> Hủy bỏ</button>
 						<button type="submit" class="btn btn-danger"><i class="fal fa-trash-alt"></i> Thực hiện</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form action="{{ route('supmanager.bomon.nhap') }}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+		@csrf
+		<div class="modal fade" id="importModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="importModalLabel">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="importModalLabel">Nhập từ Excel</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="mb-0">
+							<label class="form-label" for="file_excel"><span class="badge bg-info">1</span> Chọn tập tin Excel <span class="text-danger fw-bold">*</span></label>
+							<input type="file" class="form-control" id="file_excel" name="file_excel" required />
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fal fa-times"></i> Hủy bỏ</button>
+						<button type="submit" class="btn btn-danger"><i class="fal fa-upload"></i> Nhập dữ liệu</button>
 					</div>
 				</div>
 			</div>

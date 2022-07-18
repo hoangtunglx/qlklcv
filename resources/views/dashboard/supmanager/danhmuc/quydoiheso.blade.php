@@ -37,7 +37,7 @@
 				<table id="DataList" class="table table-bordered table-hover table-sm overflow-hidden">
 					<thead>
 						<tr>
-							<th class="text-nowrap" width="5%">#</th>
+							{{-- <th class="text-nowrap" width="5%">#</th> --}}
 							<th class="text-nowrap" width="15%">ID</th>
 							<th class="text-nowrap" width="40%">Hoạt động</th>
                             <th class="text-nowrap" width="15%">Hệ số</th>
@@ -47,17 +47,20 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($quydoiheso as $value)
+						{{-- @foreach($quydoiheso as $value) --}}
+						@if($quydoiheso)
 							<tr>
-								<td class="align-middle">{{ $loop->iteration }}</td>
-								<td class="align-middle">{{ $value->ID }}</td>
-								<td class="align-middle">{{ $value->HoatDong }}</td>
-                                <td class="align-middle">{{ $value->HeSo }}</td>
-                                <td class="align-middle">{{ $value->NamHoc }}</td>
-								<td class="align-middle text-center"><a href="#sua" data-bs-toggle="modal" data-bs-target="#myModalEdit" onclick="getCapNhat('{{ $value->ID }}', '{{ $value->HoatDong }}', '{{ $value->HeSo }}', '{{ $value->NamHoc }}'); return false;"><i class="fal fa-edit"></i></a></td>
-								<td class="align-middle text-center pe-1"><a href="#xoa" data-bs-toggle="modal" data-bs-target="#myModalDelete" onclick="getXoa('{{ $value->ID }}'); return false;"><i class="fal fa-trash-alt text-danger"></i></a></td>
+								{{-- <td class="align-middle">{{ $loop->iteration }}</td> --}}
+								<td class="align-middle">{{ $quydoiheso->ID }}</td>
+								<td class="align-middle">{{ $quydoiheso->HoatDong }}</td>
+                                <td class="align-middle">{{ $quydoiheso->HeSo }}</td>
+                                <td class="align-middle">{{ $quydoiheso->NamHoc }}</td>
+								
+								<td class="align-middle text-center"><a href="#sua" data-bs-toggle="modal" data-bs-target="#myModalEdit" onclick="getCapNhat('{{ $quydoiheso->ID }}', '{{ $quydoiheso->HoatDong }}', '{{ $quydoiheso->HeSo }}', '{{ $quydoiheso->NamHoc }}'); return false;"><i class="fal fa-edit"></i></a></td>
+								<td class="align-middle text-center pe-1"><a href="#xoa" data-bs-toggle="modal" data-bs-target="#myModalDelete" onclick="getXoa('{{ $quydoiheso->ID }}'); return false;"><i class="fal fa-trash-alt text-danger"></i></a></td>			
 							</tr>
-						@endforeach
+						@endif
+						{{-- @endforeach --}}
 					</tbody>
 				</table>
 			</div>

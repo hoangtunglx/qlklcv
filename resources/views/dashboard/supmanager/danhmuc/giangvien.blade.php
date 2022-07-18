@@ -28,7 +28,34 @@
 			<h5 class="mb-0">Giảng viên</h5>
 		</div>
 		<div class="card-body pb-0">
-			<p><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalThem"><i class="fal fa-plus"></i> Thêm</button></p>
+			<form action="{{ route('supmanager.giangvien.bomon') }}" method="POST">
+				@csrf
+				<div class="row g-3 align-items-center mb-3">
+					<div class="col-auto">
+						<label class="col-form-label" for="MaBoMon"> Bộ môn </label>
+					</div>
+					<div class="col-auto">
+						<select class="form-select  @error('MaBoMon') is-invalid @enderror" id="MaBoMon" name="MaBoMon" required>
+							<option value="">-- Chọn Bộ môn --</option>
+							@foreach($bomon as $value)
+							<option value="{{$value->MaBoMon}}" {{$mabomon==$value->MaBoMon?'selected':''}}>{{$value->TenBoMon}}</option>
+							@endforeach
+						</select>
+						@error('MaBoMon')
+							<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+						@enderror
+					</div>
+					<div class="col-auto">
+						<button type="submit" class="btn btn-danger">Xác nhận</button>
+					</div>
+					
+				</div>	
+			</form>
+			<p>
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalThem"><i class="fal fa-plus"></i> Thêm</button>
+				<a href="#nhap" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#importModal"><i class="fal fa-upload"></i> Nhập từ Excel</a>
+				<a href="{{route('supmanager.giangvien.xuat')}}" class="btn btn-success"><i class="fal fa-download"></i> Xuất ra Excel</a>
+			</p>
 			<div class="table-responsive scrollbar">
 				<table id="DataList" class="table table-bordered table-hover table-sm overflow-hidden">
 					<thead>
@@ -38,7 +65,7 @@
 							<th class="text-nowrap" width="20%">Họ tên</th>
 							<th class="text-nowrap" width="20%">Email</th>
 							<th class="text-nowrap" width="20%">Tên bộ môn</th>
-                            <th class="text-nowrap" width="10%">Mã ngạch</th>
+                            <th class="text-nowrap" width="10%">Ngạch</th>
 							<th class="text-nowrap" width="5%">Sửa</th>
 							<th class="text-nowrap" width="5%">Xóa</th>
 						</tr>
@@ -51,13 +78,16 @@
 								<td class="align-middle">{{ $value->HoVaTen }}</td>
                                 <td class="align-middle">{{ $value->Email }}</td>
 								<td class="align-middle">{{ $value->BoMon->TenBoMon }}</td>
-                                <td class="align-middle">{{ $value->MaNgach}}</td>
+                                <td class="align-middle">{{ $value->Ngach->DienGiai}}</td>
 								<td class="align-middle text-center"><a href="#sua" data-bs-toggle="modal" data-bs-target="#myModalEdit" onclick="getCapNhat('{{ $value->MaGiangVien }}', '{{ $value->HoVaTen }}','{{$value->Email}}','{{$value->MaBoMon}}','{{$value->MaNgach}}'); return false;"><i class="fal fa-edit"></i></a></td>
 								<td class="align-middle text-center pe-1"><a href="#xoa" data-bs-toggle="modal" data-bs-target="#myModalDelete" onclick="getXoa('{{ $value->MaGiangVien }}'); return false;"><i class="fal fa-trash-alt text-danger"></i></a></td>
 							</tr>
 						@endforeach
 					</tbody>
 				</table>
+			</div>
+			<div class="mt-1">
+				{{ $giangvien->links() }}
 			</div>
 		</div>
 	</div>
@@ -205,6 +235,29 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fal fa-times"></i> Hủy bỏ</button>
 						<button type="submit" class="btn btn-danger"><i class="fal fa-trash-alt"></i> Thực hiện</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form action="{{ route('supmanager.giangvien.nhap') }}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+		@csrf
+		<div class="modal fade" id="importModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="importModalLabel">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="importModalLabel">Nhập từ Excel</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="mb-0">
+							<label class="form-label" for="file_excel"><span class="badge bg-info">1</span> Chọn tập tin Excel <span class="text-danger fw-bold">*</span></label>
+							<input type="file" class="form-control" id="file_excel" name="file_excel" required />
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fal fa-times"></i> Hủy bỏ</button>
+						<button type="submit" class="btn btn-danger"><i class="fal fa-upload"></i> Nhập dữ liệu</button>
 					</div>
 				</div>
 			</div>

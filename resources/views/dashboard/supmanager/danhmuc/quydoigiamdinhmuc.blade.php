@@ -37,7 +37,7 @@
 				<table id="DataList" class="table table-bordered table-hover table-sm overflow-hidden">
 					<thead>
 						<tr>
-							<th class="text-nowrap" width="5%">#</th>
+							{{-- <th class="text-nowrap" width="5%">#</th> --}}
 							<th class="text-nowrap" width="15%">ID</th>
 							<th class="text-nowrap" width="40%">Hoạt động</th>
                             <th class="text-nowrap" width="15%">Phần trăm định mức</th>
@@ -47,17 +47,19 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($quydoigiamdinhmuc as $value)
+						{{-- @foreach($quydoigiamdinhmuc as $value) --}}
+						@if($quydoigiamdinhmuc)
 							<tr>
-								<td class="align-middle">{{ $loop->iteration }}</td>
-								<td class="align-middle">{{ $value->ID }}</td>
-								<td class="align-middle">{{ $value->HoatDong }}</td>
-                                <td class="align-middle">{{ $value->PhanTramDinhMuc }}</td>
-                                <td class="align-middle">{{ $value->NamHoc }}</td>
-								<td class="align-middle text-center"><a href="#sua" data-bs-toggle="modal" data-bs-target="#myModalEdit" onclick="getCapNhat('{{ $value->ID }}', '{{ $value->HoatDong }}', '{{ $value->PhanTramDinhMuc }}', '{{ $value->NamHoc }}'); return false;"><i class="fal fa-edit"></i></a></td>
-								<td class="align-middle text-center pe-1"><a href="#xoa" data-bs-toggle="modal" data-bs-target="#myModalDelete" onclick="getXoa('{{ $value->ID }}'); return false;"><i class="fal fa-trash-alt text-danger"></i></a></td>
+								{{-- <td class="align-middle">{{ $loop->iteration }}</td> --}}
+								<td class="align-middle">{{ $quydoigiamdinhmuc->ID }}</td>
+								<td class="align-middle">{{ $quydoigiamdinhmuc->HoatDong }}</td>
+                                <td class="align-middle">{{ $quydoigiamdinhmuc->PhanTramDinhMuc }}</td>
+                                <td class="align-middle">{{ $quydoigiamdinhmuc->NamHoc }}</td>
+								<td class="align-middle text-center"><a href="#sua" data-bs-toggle="modal" data-bs-target="#myModalEdit" onclick="getCapNhat('{{ $quydoigiamdinhmuc->ID }}', '{{ $quydoigiamdinhmuc->HoatDong }}', '{{ $quydoigiamdinhmuc->PhanTramDinhMuc }}', '{{ $quydoigiamdinhmuc->NamHoc }}'); return false;"><i class="fal fa-edit"></i></a></td>
+								<td class="align-middle text-center pe-1"><a href="#xoa" data-bs-toggle="modal" data-bs-target="#myModalDelete" onclick="getXoa('{{ $quydoigiamdinhmuc->ID }}'); return false;"><i class="fal fa-trash-alt text-danger"></i></a></td>
 							</tr>
-						@endforeach
+						@endif
+						{{-- @endforeach --}}
 					</tbody>
 				</table>
 			</div>

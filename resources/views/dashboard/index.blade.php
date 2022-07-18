@@ -168,7 +168,7 @@
 						<div class="d-flex position-relative align-items-center mb-2">
 							<img class="d-flex align-self-center me-2 rounded-3" src="{{ asset('public/assets/img/icons/folder.png') }}" width="50" />
 							<div class="flex-1">
-								<h6 class="fs-0 mb-0"><a class="stretched-link" href="{{ route('supmanager.dulieuthoikhoabieu') }}">Dữ liệu thời khóa biểu</a></h6>
+								<h6 class="fs-0 mb-0"><a class="stretched-link" href="{{ route('supmanager.dulieuthoikhoabieu') }}"> Dữ liệu thời khóa biểu</a></h6>
 							</div>
 						</div>
 					</div>

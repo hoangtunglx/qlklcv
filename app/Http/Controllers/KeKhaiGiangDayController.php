@@ -8,4 +8,7 @@ class KeKhaiGiangDayController extends Controller
 {
     //
     // getDanhSach_User
+    function getDanhSach_User(){
+        return view('dashboard.user.kekhaigiangday');
+    }
 }

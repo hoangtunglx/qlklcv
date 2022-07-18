@@ -28,6 +28,29 @@
 			<h5 class="mb-0">Định mức của bộ môn</h5>
 		</div>
 		<div class="card-body pb-0">
+			<form action="{{ route('supmanager.dinhmucbomon.bomon') }}" method="POST">
+				@csrf
+				<div class="row g-3 align-items-center mb-3">
+					<div class="col-auto">
+						<label class="col-form-label" for="MaBoMon"> Bộ môn </label>
+					</div>
+					<div class="col-auto">
+						<select class="form-select  @error('MaBoMon') is-invalid @enderror" id="MaBoMon" name="MaBoMon" required>
+							<option value="">-- Chọn Bộ môn --</option>
+							@foreach($bomon as $value)
+							<option value="{{$value->MaBoMon}}" {{$mabomon==$value->MaBoMon?'selected':''}}>{{$value->TenBoMon}}</option>
+							@endforeach
+						</select>
+						@error('MaBoMon')
+							<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+						@enderror
+					</div>
+					<div class="col-auto">
+						<button type="submit" class="btn btn-danger">Xác nhận</button>
+					</div>
+					
+				</div>	
+			</form>
 			<p>
 				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalThem"><i class="fal fa-plus"></i> Thêm</button>
 				<a href="#nhap" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#importModal"><i class="fal fa-upload"></i> Nhập từ Excel</a>
@@ -59,6 +82,9 @@
 						@endforeach
 					</tbody>
 				</table>
+			</div>
+			<div class="mt-1">
+				{{ $dinhmucbomon->links() }}
 			</div>
 		</div>
 	</div>

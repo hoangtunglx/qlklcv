@@ -33,7 +33,6 @@
 				<table id="DataList" class="table table-bordered table-hover table-sm overflow-hidden">
 					<thead>
 						<tr>
-							<th class="text-nowrap" width="5%">#</th>
 							<th class="text-nowrap" width="20%">Định mức giảng dạy</th>
                             <th class="text-nowrap" width="20%" title="Định mức nghiên cứu khoa học">Định mức NCKH</th>
                             <th class="text-nowrap" width="20%">Năm học</th>
@@ -42,16 +41,16 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($dinhmucgiangvien as $value)
-							<tr>
-								<td class="align-middle">{{ $loop->iteration }}</td>
-								<td class="align-middle">{{ $value->DinhMucGiangDay }}</td>
-								<td class="align-middle">{{ $value->DinhMucNCKH }}</td>
-								<td class="align-middle">{{ $value->NamHoc }}</td>
-								<td class="align-middle text-center"><a href="#sua" data-bs-toggle="modal" data-bs-target="#myModalEdit" onclick="getCapNhat('{{ $value->ID }}',{{$value->DinhMucGiangDay}},{{$value->DinhMucNCKH}},'{{$value->NamHoc}}'); return false;"><i class="fal fa-edit"></i></a></td>
-								<td class="align-middle text-center pe-1"><a href="#xoa" data-bs-toggle="modal" data-bs-target="#myModalDelete" onclick="getXoa('{{ $value->ID }}'); return false;"><i class="fal fa-trash-alt text-danger"></i></a></td>
-							</tr>
-						@endforeach
+						@if ($dinhmucgiangvien)
+						<tr>
+							<td class="align-middle">{{ $dinhmucgiangvien->DinhMucGiangDay }}</td>
+							<td class="align-middle">{{ $dinhmucgiangvien->DinhMucNCKH }}</td>
+							<td class="align-middle">{{ $dinhmucgiangvien->NamHoc }}</td>
+							<td class="align-middle text-center"><a href="#sua" data-bs-toggle="modal" data-bs-target="#myModalEdit" onclick="getCapNhat('{{ $dinhmucgiangvien->ID }}',{{$dinhmucgiangvien->DinhMucGiangDay}},{{$dinhmucgiangvien->DinhMucNCKH}},'{{$dinhmucgiangvien->NamHoc}}'); return false;"><i class="fal fa-edit"></i></a></td>
+							<td class="align-middle text-center pe-1"><a href="#xoa" data-bs-toggle="modal" data-bs-target="#myModalDelete" onclick="getXoa('{{ $dinhmucgiangvien->ID }}'); return false;"><i class="fal fa-trash-alt text-danger"></i></a></td>
+						</tr>
+						@endif				
+						
 					</tbody>
 				</table>
 			</div>

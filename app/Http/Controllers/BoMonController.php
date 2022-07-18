@@ -5,15 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\BoMon;
 use App\Models\Khoa;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BoMonController extends Controller
 {
     //
     public function getDanhSach()
 	{
-		$bomon = BoMon::all();
+		$bomon = BoMon::paginate(getSoDong());
         $khoa =Khoa::all();
-		return view('dashboard.supmanager.danhmuc.bomon', compact('bomon','khoa'));
+		$makhoa='';
+		return view('dashboard.supmanager.danhmuc.bomon', compact('bomon','khoa','makhoa'));
+	}
+	
+	public function postDanhSach_Khoa(Request $request)
+	{
+		$bomon = BoMon::where('MaKhoa',$request->MaKhoa)->paginate(getSoDong());
+        $khoa =Khoa::all();
+		$makhoa=$request->MaKhoa;
+		return view('dashboard.supmanager.danhmuc.bomon', compact('bomon','khoa','makhoa'));
 	}
     public function postThem(Request $request)
 	{
@@ -29,7 +39,6 @@ class BoMonController extends Controller
         $orm->MaKhoa = $request->MaKhoa;
 		$orm->save();
 		
-		// return redirect()->route('dashboard.admin.nguoidung');
 		return redirect()->route('supmanager.bomon');
 	}
     public function postSua(Request $request)
@@ -47,7 +56,6 @@ class BoMonController extends Controller
         $orm->MaKhoa = $request->MaKhoa_edit;
 		$orm->save();
 		
-		// return redirect()->route('dashboard.admin.nguoidung');
 		return redirect()->route('supmanager.bomon');
 	}
     public function postXoa(Request $request)
@@ -55,7 +63,47 @@ class BoMonController extends Controller
 		$orm = BoMon::find($request->MaBoMon_delete);
 		$orm->delete();
 		
-		// return redirect()->route('dashboard.admin.taikhoan');
 		return redirect()->route('supmanager.bomon');
+	}
+	public function postNhap_SupManager(Request $request)
+	{
+		try
+		{
+			$import = new BoMon();
+			$import->import($request->file('file_excel'));
+			
+			if(count($import->failures()) > 0)
+			{
+				$messages = 'Các dòng bị lỗi:';
+				foreach($import->failures() as $failure)
+				{
+					$messages .= '<br />Dòng: <b>' . $failure->row() . '</b>';
+					$messages .= '; Thuộc tính: <b>' . $failure->attribute() . '</b>';
+					$messages .= '; Lỗi: <b>' . implode('</b>, <b>', $failure->errors()) . '</b>';
+				}
+				return redirect()->route('supmanager.bomon')->with('warning', $messages);
+			}
+			else
+			{
+				return redirect()->route('supmanager.bomon')->with('success', 'Đã nhập dữ liệu thành công!');
+			}
+		}
+		catch(\Maatwebsite\Excel\Validators\ValidationException $e)
+		{
+			$failures = $e->failures();
+			$messages = 'Các dòng bị lỗi:';
+			foreach($failures as $failure)
+			{
+				$messages .= '<br />Dòng: <b>' . $failure->row() . '</b>';
+				$messages .= '; Thuộc tính: <b>' . $failure->attribute() . '</b>';
+				$messages .= '; Lỗi: <b>' . implode('</b>, <b>', $failure->errors()) . '</b>';
+			}
+			return redirect()->route('supmanager.bomon')->with('warning', $messages);
+		}
+	}
+	
+	public function getXuat_SupManager()
+	{
+		return Excel::download(new BoMon(), 'bomon.xlsx');
 	}
 }

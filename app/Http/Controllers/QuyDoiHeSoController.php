@@ -10,7 +10,7 @@ class QuyDoiHeSoController extends Controller
     //
     public function getDanhSach()
 	{
-		$quydoiheso = QuyDoiHeSo::all();
+		$quydoiheso = QuyDoiHeSo::where('NamHoc', getNamHoc())->first();
 		return view('dashboard.supmanager.danhmuc.quydoiheso', compact('quydoiheso'));
 	}
     public function postThem(Request $request)
@@ -56,4 +56,45 @@ class QuyDoiHeSoController extends Controller
 		$orm->delete();
 		return redirect()->route('supmanager.quydoiheso');
 	}
+	public function postNhap(Request $request)
+	{
+		try
+		{
+			$import = new QuyDoiHeSo();
+			$import->import($request->file('file_excel'));
+			
+			if(count($import->failures()) > 0)
+			{
+				$messages = 'Các dòng bị lỗi:';
+				foreach($import->failures() as $failure)
+				{
+					$messages .= '<br />Dòng: <b>' . $failure->row() . '</b>';
+					$messages .= '; Thuộc tính: <b>' . $failure->attribute() . '</b>';
+					$messages .= '; Lỗi: <b>' . implode('</b>, <b>', $failure->errors()) . '</b>';
+				}
+				return redirect()->route('supmanager.quydoiheso')->with('warning', $messages);
+			}
+			else
+			{
+				return redirect()->route('supmanager.quydoiheso')->with('success', 'Đã nhập dữ liệu thành công!');
+			}
+		}
+		catch(\Maatwebsite\Excel\Validators\ValidationException $e)
+		{
+			$failures = $e->failures();
+			$messages = 'Các dòng bị lỗi:';
+			foreach($failures as $failure)
+			{
+				$messages .= '<br />Dòng: <b>' . $failure->row() . '</b>';
+				$messages .= '; Thuộc tính: <b>' . $failure->attribute() . '</b>';
+				$messages .= '; Lỗi: <b>' . implode('</b>, <b>', $failure->errors()) . '</b>';
+			}
+			return redirect()->route('supmanager.quydoiheso')->with('warning', $messages);
+		}
+	}
+	
+	// public function getXuat()
+	// {
+	// 	return Excel::download(new QuyDoiHeSo(), 'quydoiheso.xlsx');
+	// }
 }

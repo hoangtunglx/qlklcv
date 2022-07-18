@@ -75,17 +75,23 @@ Route::prefix('supmanager')->name('supmanager.')->middleware('supmanager')->grou
 	Route::post('/bomon/sua', [BoMonController::class, 'postSua'])->name('bomon.sua');
 	Route::post('/bomon/xoa', [BoMonController::class, 'postXoa'])->name('bomon.xoa');
 	Route::post('/bomon/khoa', [BoMonController::class, 'postDanhSach_Khoa'])->name('bomon.khoa');
-	
+	Route::get('/bomon/xuat', [BoMonController::class, 'getXuat_SupManager'])->name('bomon.xuat');
+	Route::post('/bomon/nhap', [BoMonController::class, 'postNhap_SupManager'])->name('bomon.nhap');
+
 	Route::get('/lop', [LopController::class, 'getDanhSach'])->name('lop');
 	Route::post('/lop/them', [LopController::class, 'postThem'])->name('lop.them');
 	Route::post('/lop/sua', [LopController::class, 'postSua'])->name('lop.sua');
 	Route::post('/lop/xoa', [LopController::class, 'postXoa'])->name('lop.xoa');
+	Route::get('/lop/xuat', [LopController::class, 'getXuat_SupManager'])->name('lop.xuat');
+	Route::post('/lop/nhap', [LopController::class, 'postNhap_SupManager'])->name('lop.nhap');
 	
 	Route::get('/nganh', [NganhController::class, 'getDanhSach'])->name('nganh');
 	Route::post('/nganh/them', [NganhController::class, 'postThem'])->name('nganh.them');
 	Route::post('/nganh/sua', [NganhController::class, 'postSua'])->name('nganh.sua');
 	Route::post('/nganh/xoa', [NganhController::class, 'postXoa'])->name('nganh.xoa');
 	Route::post('/nganh/khoa', [NganhController::class, 'postDanhSach_Khoa'])->name('nganh.khoa');
+	Route::get('/nganh/xuat', [NganhController::class, 'getXuat_SupManager'])->name('nganh.xuat');
+	Route::post('/nganh/nhap', [NganhController::class, 'postNhap_SupManager'])->name('nganh.nhap');
 	
 	Route::get('/ngach', [NgachController::class, 'getDanhSach'])->name('ngach');
 	Route::post('/ngach/them', [NgachController::class, 'postThem'])->name('ngach.them');
@@ -97,12 +103,14 @@ Route::prefix('supmanager')->name('supmanager.')->middleware('supmanager')->grou
 	Route::post('/giangvien/sua', [GiangVienController::class, 'postSua'])->name('giangvien.sua');
 	Route::post('/giangvien/xoa', [GiangVienController::class, 'postXoa'])->name('giangvien.xoa');
 	Route::post('/giangvien/bomon', [GiangVienController::class, 'postDanhSach_BoMon'])->name('giangvien.bomon');
+	Route::get('/giangvien/xuat', [GiangVienController::class, 'getXuat_SupManager'])->name('giangvien.xuat');
+	Route::post('/giangvien/nhap', [GiangVienController::class, 'postNhap_SupManager'])->name('giangvien.nhap');
 	
 	Route::get('/dinhmucbomon', [DinhMucBoMonController::class, 'getDanhSach_SupManager'])->name('dinhmucbomon');
 	Route::post('/dinhmucbomon/them', [DinhMucBoMonController::class, 'postThem_SupManager'])->name('dinhmucbomon.them');
 	Route::post('/dinhmucbomon/sua', [DinhMucBoMonController::class, 'postSua_SupManager'])->name('dinhmucbomon.sua');
 	Route::post('/dinhmucbomon/xoa', [DinhMucBoMonController::class, 'postXoa_SupManager'])->name('dinhmucbomon.xoa');
-	Route::post('/dinhmucbomon/khoa', [DinhMucBoMonController::class, 'postDanhSach_Khoa_SupManager'])->name('dinhmucbomon.khoa');
+	Route::post('/dinhmucbomon/bomon', [DinhMucBoMonController::class, 'postDanhSach_BoMon_SupManager'])->name('dinhmucbomon.bomon');
 	Route::get('/dinhmucbomon/xuat', [DinhMucBoMonController::class, 'getXuat_SupManager'])->name('dinhmucbomon.xuat');
 	Route::post('/dinhmucbomon/nhap', [DinhMucBoMonController::class, 'postNhap_SupManager'])->name('dinhmucbomon.nhap');
 	
@@ -160,7 +168,7 @@ Route::prefix('supmanager')->name('supmanager.')->middleware('supmanager')->grou
 	
 	Route::get('/dinhmucgiangvien', [DinhMucGiangVienController::class, 'getDanhSach_SupManager'])->name('dinhmucgiangvien');
 	Route::post('/dinhmucgiangvien/khoa', [DinhMucGiangVienController::class, 'getDanhSach_Khoa_SupManager'])->name('dinhmucgiangvien.khoa');
-	Route::post('/dinhmucgiangvien/bomon', [DinhMucGiangVienController::class, 'getDanhSach_MoMon_SupManager'])->name('dinhmucgiangvien.bomon');
+	Route::post('/dinhmucgiangvien/bomon', [DinhMucGiangVienController::class, 'getDanhSach_BoMon_SupManager'])->name('dinhmucgiangvien.bomon');
 });
 
 // Cán bộ thống kê
@@ -173,23 +181,23 @@ Route::prefix('statistic')->name('statistic.')->middleware('statistic')->group(f
 	
 	Route::get('/dinhmucgiangvien', [DinhMucGiangVienController::class, 'getDanhSach_Statistic'])->name('dinhmucgiangvien');
 	Route::post('/dinhmucgiangvien/khoa', [DinhMucGiangVienController::class, 'postDanhSach_Khoa_Statistic'])->name('dinhmucgiangvien.khoa');
-	Route::post('/dinhmucgiangvien/bomon', [DinhMucGiangVienController::class, 'postDanhSach_MoMon_Statistic'])->name('dinhmucgiangvien.bomon');
+	Route::post('/dinhmucgiangvien/bomon', [DinhMucGiangVienController::class, 'postDanhSach_BoMon_Statistic'])->name('dinhmucgiangvien.bomon');
 	
 	Route::get('/dulieuthoikhoabieu', [DuLieuThoiKhoaBieuController::class, 'getDanhSach_Statistic'])->name('dulieuthoikhoabieu');
 	Route::post('/dulieuthoikhoabieu/khoa', [DuLieuThoiKhoaBieuController::class, 'postDanhSach_Khoa_Statistic'])->name('dulieuthoikhoabieu.khoa');
-	Route::post('/dulieuthoikhoabieu/bomon', [DuLieuThoiKhoaBieuController::class, 'postDanhSach_MoMon_Statistic'])->name('dulieuthoikhoabieu.bomon');
+	Route::post('/dulieuthoikhoabieu/bomon', [DuLieuThoiKhoaBieuController::class, 'postDanhSach_BoMon_Statistic'])->name('dulieuthoikhoabieu.bomon');
 	
 	Route::get('/kekhaigiamdinhmuc', [KeKhaiGiamDinhMucController::class, 'getDanhSach_Statistic'])->name('kekhaigiamdinhmuc');
 	Route::post('/kekhaigiamdinhmuc/khoa', [KeKhaiGiamDinhMucController::class, 'postDanhSach_Khoa_Statistic'])->name('kekhaigiamdinhmuc.khoa');
-	Route::post('/kekhaigiamdinhmuc/bomon', [KeKhaiGiamDinhMucController::class, 'postDanhSach_MoMon_Statistic'])->name('kekhaigiamdinhmuc.bomon');
+	Route::post('/kekhaigiamdinhmuc/bomon', [KeKhaiGiamDinhMucController::class, 'postDanhSach_BoMon_Statistic'])->name('kekhaigiamdinhmuc.bomon');
 	
 	Route::get('/kekhaigiangday', [KeKhaiGiangDayController::class, 'getDanhSach_Statistic'])->name('kekhaigiangday');
 	Route::post('/kekhaigiangday/khoa', [KeKhaiGiangDayController::class, 'postDanhSach_Khoa_Statistic'])->name('kekhaigiangday.khoa');
-	Route::post('/kekhaigiangday/bomon', [KeKhaiGiangDayController::class, 'postDanhSach_MoMon_Statistic'])->name('kekhaigiangday.bomon');
+	Route::post('/kekhaigiangday/bomon', [KeKhaiGiangDayController::class, 'postDanhSach_BoMon_Statistic'])->name('kekhaigiangday.bomon');
 	
 	Route::get('/kekhaihoatdongkhac', [KeKhaiHoatDongKhacController::class, 'getDanhSach_Statistic'])->name('kekhaihoatdongkhac');
 	Route::post('/kekhaihoatdongkhac/khoa', [KeKhaiHoatDongKhacController::class, 'postDanhSach_Khoa_Statistic'])->name('kekhaihoatdongkhac.khoa');
-	Route::post('/kekhaihoatdongkhac/bomon', [KeKhaiHoatDongKhacController::class, 'postDanhSach_MoMon_Statistic'])->name('kekhaihoatdongkhac.bomon');
+	Route::post('/kekhaihoatdongkhac/bomon', [KeKhaiHoatDongKhacController::class, 'postDanhSach_BoMon_Statistic'])->name('kekhaihoatdongkhac.bomon');
 });
 
 // Khoa và Bộ môn
@@ -197,22 +205,22 @@ Route::prefix('manager')->name('manager.')->middleware('manager')->group(functio
 	Route::get('/', [ManagerController::class, 'getHome'])->name('home');
 	Route::get('/home', [ManagerController::class, 'getHome'])->name('home');
 	
-	Route::get('/dinhmucbomon', [DinhMucBoMonController::class, 'getDanhSach_Statistic'])->name('dinhmucbomon');
+	Route::get('/dinhmucbomon', [DinhMucBoMonController::class, 'getDanhSach_Manager'])->name('dinhmucbomon');
 	
-	Route::get('/dinhmucgiangvien', [DinhMucGiangVienController::class, 'getDanhSach_Statistic'])->name('dinhmucgiangvien');
-	Route::post('/dinhmucgiangvien/bomon', [DinhMucGiangVienController::class, 'postDanhSach_MoMon_Statistic'])->name('dinhmucgiangvien.bomon');
+	Route::get('/dinhmucgiangvien', [DinhMucGiangVienController::class, 'getDanhSach_Manager'])->name('dinhmucgiangvien');
+	Route::post('/dinhmucgiangvien/bomon', [DinhMucGiangVienController::class, 'postDanhSach_BoMon_Manager'])->name('dinhmucgiangvien.bomon');
 	
 	Route::get('/dulieuthoikhoabieu', [DuLieuThoiKhoaBieuController::class, 'getDanhSach_Statistic'])->name('dulieuthoikhoabieu');
-	Route::post('/dulieuthoikhoabieu/bomon', [DuLieuThoiKhoaBieuController::class, 'postDanhSach_MoMon_Statistic'])->name('dulieuthoikhoabieu.bomon');
+	Route::post('/dulieuthoikhoabieu/bomon', [DuLieuThoiKhoaBieuController::class, 'postDanhSach_BoMon_Statistic'])->name('dulieuthoikhoabieu.bomon');
 	
 	Route::get('/kekhaigiamdinhmuc', [KeKhaiGiamDinhMucController::class, 'getDanhSach_Statistic'])->name('kekhaigiamdinhmuc');
-	Route::post('/kekhaigiamdinhmuc/bomon', [KeKhaiGiamDinhMucController::class, 'postDanhSach_MoMon_Statistic'])->name('kekhaigiamdinhmuc.bomon');
+	Route::post('/kekhaigiamdinhmuc/bomon', [KeKhaiGiamDinhMucController::class, 'postDanhSach_BoMon_Statistic'])->name('kekhaigiamdinhmuc.bomon');
 	
 	Route::get('/kekhaigiangday', [KeKhaiGiangDayController::class, 'getDanhSach_Statistic'])->name('kekhaigiangday');
-	Route::post('/kekhaigiangday/bomon', [KeKhaiGiangDayController::class, 'postDanhSach_MoMon_Statistic'])->name('kekhaigiangday.bomon');
+	Route::post('/kekhaigiangday/bomon', [KeKhaiGiangDayController::class, 'postDanhSach_BoMon_Statistic'])->name('kekhaigiangday.bomon');
 	
 	Route::get('/kekhaihoatdongkhac', [KeKhaiHoatDongKhacController::class, 'getDanhSach_Statistic'])->name('kekhaihoatdongkhac');
-	Route::post('/kekhaihoatdongkhac/bomon', [KeKhaiHoatDongKhacController::class, 'postDanhSach_MoMon_Statistic'])->name('kekhaihoatdongkhac.bomon');
+	Route::post('/kekhaihoatdongkhac/bomon', [KeKhaiHoatDongKhacController::class, 'postDanhSach_BoMon_Statistic'])->name('kekhaihoatdongkhac.bomon');
 });
 
 // Giảng viên

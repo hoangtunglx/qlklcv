@@ -28,6 +28,52 @@
 			<h5 class="mb-0">Định mức của giảng viên</h5>
 		</div>
 		<div class="card-body pb-0">
+			<form action="{{ route('supmanager.dinhmucgiangvien.khoa') }}" method="POST">
+				@csrf
+				<div class="row g-3 align-items-center mb-3">
+					<div class="col-auto">
+						<label class="col-form-label" for="MaKhoa"> Khoa </label>
+					</div>
+					<div class="col-auto">
+						<select class="form-select  @error('MaKhoa') is-invalid @enderror" id="MaKhoa" name="MaKhoa" required>
+							<option value="">-- Chọn Khoa --</option>
+							@foreach($khoa as $value)
+							<option value="{{$value->MaKhoa}}" {{$makhoa==$value->MaKhoa?'selected':''}}>{{$value->TenKhoa}}</option>
+							@endforeach
+						</select>
+						@error('MaKhoa')
+							<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+						@enderror
+					</div>
+					<div class="col-auto">
+						<button type="submit" class="btn btn-danger">Xác nhận</button>
+					</div>
+					
+				</div>	
+			</form>
+			<form action="{{ route('supmanager.dinhmucgiangvien.bomon') }}" method="POST">
+				@csrf
+				<div class="row g-3 align-items-center mb-3">
+					<div class="col-auto">
+						<label class="col-form-label" for="MaBoMon"> Bộ môn </label>
+					</div>
+					<div class="col-auto">
+						<select class="form-select  @error('MaBoMon') is-invalid @enderror" id="MaBoMon" name="MaBoMon" required>
+							<option value="">-- Chọn Bộ môn --</option>
+							@foreach($bomon as $value)
+							<option value="{{$value->MaBoMon}}" {{$mabomon==$value->MaBoMon?'selected':''}}>{{$value->TenBoMon}}</option>
+							@endforeach
+						</select>
+						@error('MaBoMon')
+							<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+						@enderror
+					</div>
+					<div class="col-auto">
+						<button type="submit" class="btn btn-danger">Xác nhận</button>
+					</div>
+					
+				</div>	
+			</form>
 			{{-- <p><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalThem"><i class="fal fa-plus"></i> Thêm</button></p> --}}
 			<div class="table-responsive scrollbar">
 				<table id="DataList" class="table table-bordered table-hover table-sm overflow-hidden">

@@ -10,7 +10,7 @@ class QuyDinhController extends Controller
     //
     public function getDanhSach()
 	{
-		$quydinh = QuyDinh::all();
+		$quydinh = QuyDinh::first();
 		return view('dashboard.admin.quydinh', compact('quydinh'));
 	}
 	public function postSuaNamHoc(Request $request)
@@ -23,7 +23,6 @@ class QuyDinhController extends Controller
 		$orm->NamHocHienTai = $request->NamHocHienTai_edit;
 		$orm->save();
 		
-		// return redirect()->route('dashboard.admin.nguoidung');
 		return redirect()->route('admin.quydinh');
 	}
 	public function postSuaThoiGianKeKhai(Request $request)
