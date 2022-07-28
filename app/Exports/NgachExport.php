@@ -7,7 +7,9 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithMapping;
-class NgachExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+
+class NgachExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection

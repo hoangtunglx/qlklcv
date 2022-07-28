@@ -7,8 +7,9 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class GiangVienExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping
+class GiangVienExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -16,11 +17,11 @@ class GiangVienExport implements FromCollection, WithHeadings, WithCustomStartCe
     public function headings(): array
 	{
 		return [
-			'MaGiangVien',
-			'MaNgach',
-            'MaBoMon',
-            'HoVaTen',
-            'Email'
+			'f_manv',
+			'HoVaTen',
+			'email',
+            'f_mabm',
+            'nn'
 		];
 	}
 	
@@ -28,10 +29,10 @@ class GiangVienExport implements FromCollection, WithHeadings, WithCustomStartCe
 	{
 		return [
 			$row->MaGiangVien,
-			$row->MaNgach,
+			$row->HoVaTen,
+            $row->Email,
             $row->MaBoMon,
-            $row->HoVaTen,
-            $row->Email
+            $row->MaNgach
 		];
 	}
 	

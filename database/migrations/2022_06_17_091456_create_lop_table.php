@@ -21,7 +21,7 @@ class CreateLopTable extends Migration
 			$table->timestamp('created_at')->useCurrent();
 			$table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 			
-			$table->foreign('MaKhoa')->references('MaKhoa')->on('khoa');
+			$table->foreign('MaKhoa')->references('MaKhoa')->on('khoa')->onUpdate('cascade');
 		});
 	}
 	

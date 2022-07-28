@@ -7,8 +7,9 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class NganhExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping
+class NganhExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -16,18 +17,18 @@ class NganhExport implements FromCollection, WithHeadings, WithCustomStartCell, 
     public function headings(): array
 	{
 		return [
-			'MaNganh',
-			'TenNganh',
-			'MaKhoa',
+			'f_makh',
+			'f_mang',
+			'f_tenngvn',
 		];
 	}
 	
 	public function map($row): array
 	{
 		return [
-			$row->MaNganh,
-			$row->TenNganh,
 			$row->MaKhoa,
+			$row->MaNganh,
+			$row->TenNganh			
 		];
 	}
 	

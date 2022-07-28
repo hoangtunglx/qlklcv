@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\HocPhanExport;
 use App\Models\HocPhan;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HocPhanController extends Controller
 {
@@ -101,8 +103,8 @@ class HocPhanController extends Controller
 		}
 	}
 	
-	// public function getXuat()
-	// {
-	// 	return Excel::download(new HocPhan(), 'hocphan.xlsx');
-	// }
+	public function getXuat()
+	{
+		return Excel::download(new HocPhanExport(), 'hocphan.xlsx');
+	}
 }

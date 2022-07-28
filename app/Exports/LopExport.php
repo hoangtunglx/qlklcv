@@ -7,9 +7,10 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 
-class LopExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping
+class LopExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KhoaExport;
 use App\Models\Khoa;
 use Illuminate\Http\Request;
-
+use Maatwebsite\Excel\Facades\Excel;
 class KhoaController extends Controller
 {
     //
@@ -48,5 +49,46 @@ class KhoaController extends Controller
 		$orm->delete();
 		
 		return redirect()->route('supmanager.khoa');
+	}
+	public function postNhap_SupManager(Request $request)
+	{
+		try
+		{
+			$import = new Khoa();
+			$import->import($request->file('file_excel'));
+			
+			if(count($import->failures()) > 0)
+			{
+				$messages = 'Các dòng bị lỗi:';
+				foreach($import->failures() as $failure)
+				{
+					$messages .= '<br />Dòng: <b>' . $failure->row() . '</b>';
+					$messages .= '; Thuộc tính: <b>' . $failure->attribute() . '</b>';
+					$messages .= '; Lỗi: <b>' . implode('</b>, <b>', $failure->errors()) . '</b>';
+				}
+				return redirect()->route('supmanager.khoa')->with('warning', $messages);
+			}
+			else
+			{
+				return redirect()->route('supmanager.khoa')->with('success', 'Đã nhập dữ liệu thành công!');
+			}
+		}
+		catch(\Maatwebsite\Excel\Validators\ValidationException $e)
+		{
+			$failures = $e->failures();
+			$messages = 'Các dòng bị lỗi:';
+			foreach($failures as $failure)
+			{
+				$messages .= '<br />Dòng: <b>' . $failure->row() . '</b>';
+				$messages .= '; Thuộc tính: <b>' . $failure->attribute() . '</b>';
+				$messages .= '; Lỗi: <b>' . implode('</b>, <b>', $failure->errors()) . '</b>';
+			}
+			return redirect()->route('supmanager.khoa')->with('warning', $messages);
+		}
+	}
+	
+	public function getXuat_SupManager()
+	{
+		return Excel::download(new KhoaExport(), 'khoa.xlsx');
 	}
 }

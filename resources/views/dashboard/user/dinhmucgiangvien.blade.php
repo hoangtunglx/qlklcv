@@ -79,14 +79,7 @@
 							@error('DinhMucNCKH')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
 							@enderror
-						</div>
-						<div class="mb-0">
-							<label class="form-label" for="NamHoc"><span class="badge bg-info">3</span> Năm học <span class="text-danger fw-bold">*</span></label>
-							<input type="text" class="form-control @error('NamHoc') is-invalid @enderror" id="NamHoc" name="NamHoc" value="{{ old('NamHoc') }}" required />
-							@error('NamHoc')
-								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-							@enderror
-						</div>		
+						</div>	
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary"><i class="fal fa-save"></i> Thực hiện</button>
@@ -119,15 +112,7 @@
 							@error('DinhMucNCKH_edit')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
 							@enderror
-						</div>
-						<div class="mb-0">
-							<label class="form-label" for="NamHoc_edit"><span class="badge bg-info">3</span> Năm học <span class="text-danger fw-bold">*</span></label>
-							<input type="text" class="form-control @error('NamHoc_edit') is-invalid @enderror" id="NamHoc_edit" name="NamHoc_edit" value="{{ old('NamHoc_edit') }}" required />
-							@error('NamHoc_edit')
-								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-							@enderror
-						</div>
-                        
+						</div>                       
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary"><i class="fal fa-save"></i> Thực hiện</button>

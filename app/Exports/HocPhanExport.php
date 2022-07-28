@@ -7,8 +7,9 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class HocPhanExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping
+class HocPhanExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -16,11 +17,11 @@ class HocPhanExport implements FromCollection, WithHeadings, WithCustomStartCell
     public function headings(): array
 	{
 		return [
-			'MaHocPhan',
-			'TenHocPhan',
-            'SoTinChi',
-            'SoTietLyThuyet',
-            'SoTietThucHanh'
+			'f_mamh',
+			'f_tenmhvn',
+            'f_dvht',
+            'f_lt',
+            'f_tn'
 		];
 	}
 	

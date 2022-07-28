@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DinhMucBoMonExport;
 use App\Models\BoMon;
 use App\Models\DinhMucBoMon;
 use App\Models\Khoa;
 use Illuminate\Http\Request;
-use Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DinhMucBoMonController extends Controller
 {
@@ -27,7 +28,10 @@ class DinhMucBoMonController extends Controller
 	}
 	public function getDanhSach_Manager()
 	{
-		$dinhmucbomon = DinhMucBoMon::where("NamHoc", getNamHoc())->paginate(getSoDong());
+		$dinhmucbomon = DinhMucBoMon::where("NamHoc", getNamHoc())
+		->join('bomon','bomon.MaBoMon','=','dinhmucbomon.MaBoMon')
+		->where('bomon.MaKhoa', getGV_Khoa())
+		->paginate(getSoDong());
         $khoa=Khoa::all();
 		$makhoa='';
 		return view('dashboard.manager.danhmuc.dinhmucbomon', compact('dinhmucbomon','khoa','makhoa'));
@@ -53,13 +57,13 @@ class DinhMucBoMonController extends Controller
 		$this->validate($request, [
             'MaBoMon' => ['required', 'string', 'max:5'],
 			'TongDinhMuc' => ['required', 'numeric', 'min:0'],
-            'NamHoc' => ['required', 'string', 'max:9']
+            // 'NamHoc' => ['required', 'string', 'max:9']
 		]);
 		
 		$orm = new DinhMucBoMon();
 		$orm->MaBoMon = $request->MaBoMon;
 		$orm->TongDinhMuc = $request->TongDinhMuc;
-        $orm->NamHoc = $request->NamHoc;
+        $orm->NamHoc = getNamHoc();
 		$orm->save();
 		return redirect()->route('supmanager.dinhmucbomon');
 	}
@@ -68,13 +72,13 @@ class DinhMucBoMonController extends Controller
 		$this->validate($request, [
             'MaBoMon_edit' => ['required', 'string', 'max:5'],
 			'TongDinhMuc_edit' => ['required', 'numeric', 'min:0'],
-            'NamHoc_edit' => ['required', 'string', 'max:9']
+            // 'NamHoc_edit' => ['required', 'string', 'max:9']
 		]);
 		
 		$orm = DinhMucBoMon::find($request->id_edit);
 		$orm->MaBoMon = $request->MaBoMon_edit;
 		$orm->TongDinhMuc = $request->TongDinhMuc_edit;
-        $orm->NamHoc = $request->NamHoc_edit;
+        // $orm->NamHoc = $request->NamHoc_edit;
 		$orm->save();
 		return redirect()->route('supmanager.dinhmucbomon');
 	}
@@ -121,8 +125,8 @@ class DinhMucBoMonController extends Controller
 		}
 	}
 	
-	// public function getXuat_SupManager()
-	// {
-	// 	return Excel::download(new DinhMucBoMon(), 'dinhmucbomon.xlsx');
-	// }
+	public function getXuat_SupManager()
+	{
+		return Excel::download(new DinhMucBoMonExport(), 'dinhmucbomon.xlsx');
+	}
 }

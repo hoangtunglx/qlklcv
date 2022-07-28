@@ -95,14 +95,7 @@
 							@error('GioChuan')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
 							@enderror
-						</div>	
-						<div class="mb-3">
-							<label class="form-label" for="NamHoc"><span class="badge bg-info">4</span> Năm học <span class="text-danger fw-bold">*</span></label>
-							<input type="text" class="form-control @error('NamHoc') is-invalid @enderror" id="NamHoc" name="NamHoc" value="{{ old('NamHoc') }}" required />
-							@error('NamHoc')
-								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-							@enderror
-						</div>				
+						</div>					
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary"><i class="fal fa-save"></i> Thực hiện</button>
@@ -140,13 +133,6 @@
 							<label class="form-label" for="GioChuan_edit"><span class="badge bg-info">3</span> Giờ chuẩn <span class="text-danger fw-bold">*</span></label>
 							<input type="text" class="form-control @error('GioChuan_edit') is-invalid @enderror" id="GioChuan_edit" name="GioChuan_edit" value="{{ old('GioChuan_edit') }}" required />
 							@error('GioChuan_edit')
-								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-							@enderror
-						</div>
-						<div class="mb-3">
-							<label class="form-label" for="NamHoc_edit"><span class="badge bg-info">4</span> Năm học <span class="text-danger fw-bold">*</span></label>
-							<input type="text" class="form-control @error('NamHoc_edit') is-invalid @enderror" id="NamHoc_edit" name="NamHoc_edit" value="{{ old('NamHoc_edit') }}" required />
-							@error('NamHoc_edit')
 								<div class="invalid-feedback"><strong>{{ $message }}</strong></div>
 							@enderror
 						</div>

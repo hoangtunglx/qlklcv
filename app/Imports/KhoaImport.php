@@ -24,15 +24,15 @@ class KhoaImport implements ToModel, SkipsEmptyRows, WithValidation, WithHeading
     {
         return new Khoa([
             //
-			'MaKhoa' => $row['makhoa'],
-			'TenKhoa' => $row['tenkhoa']
+			'MaKhoa' => $row['f_makh'],
+			'TenKhoa' => $row['f_tenkhvn']
         ]);
     }
     public function rules(): array
 	{
 		return [
-			'*.makhoa' => 'required|string|max:5|unique:khoa',
-			'*.tenkhoa' => 'required|string|max:191',
+			'*.f_makh' => 'required|string|max:5|unique:khoa',
+			'*.f_tenkhvn' => 'required|string|max:191',
 		];
 	}
 }

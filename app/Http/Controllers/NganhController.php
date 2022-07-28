@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\NganhExport;
 use App\Models\Khoa;
 use App\Models\Nganh;
 use Illuminate\Http\Request;
@@ -103,6 +104,6 @@ class NganhController extends Controller
 	
 	public function getXuat_SupManager()
 	{
-		return Excel::download(new Nganh(), 'nganh.xlsx');
+		return Excel::download(new NganhExport(), 'nganh.xlsx');
 	}
 }

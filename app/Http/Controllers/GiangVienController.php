@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\GiangVienExport;
 use App\Models\BoMon;
 use App\Models\GiangVien;
 use App\Models\Ngach;
@@ -123,6 +124,6 @@ class GiangVienController extends Controller
 	
 	public function getXuat_SupManager()
 	{
-		return Excel::download(new GiangVien(), 'giangvien.xlsx');
+		return Excel::download(new GiangVienExport(), 'giangvien.xlsx');
 	}
 }

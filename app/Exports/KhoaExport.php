@@ -7,8 +7,9 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class KhoaExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping
+class KhoaExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -16,8 +17,8 @@ class KhoaExport implements FromCollection, WithHeadings, WithCustomStartCell, W
     public function headings(): array
 	{
 		return [
-			'MaKhoa',
-			'TenKhoa',
+			'f_makh',
+			'f_tenkhvn',
 		];
 	}
 	

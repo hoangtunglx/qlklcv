@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('pagetitle')
-	Định mức của giảng viên
+	Dữ liệu thời khóa biểu
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
 							<li class="breadcrumb-item"><a ><i class="fad fa-home-alt"></i></a></li>
 							{{-- href="{{ route('dashboard.danhmuc.home') }}" --}}
 							<li class="breadcrumb-item"><a href="{{ route('manager.home') }}">Bộ môn và khoa</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Định mức của giảng viên</li>
+							<li class="breadcrumb-item active" aria-current="page">Dữ liệu thời khóa biểu</li>
 						</ol>
 					</nav>
 				</div>
@@ -25,10 +25,10 @@
 	
 	<div class="card mb-0">
 		<div class="card-header bg-light">
-			<h5 class="mb-0">Định mức của giảng viên</h5>
+			<h5 class="mb-0">Dữ liệu thời khóa biểu</h5>
 		</div>
 		<div class="card-body pb-0">
-			<form action="{{ route('manager.dinhmucgiangvien.bomon') }}" method="POST">
+			<form action="{{ route('manager.dulieuthoikhoabieu.bomon') }}" method="POST">
 				@csrf
 				<div class="row g-3 align-items-center mb-3">
 					<div class="col-auto">
@@ -51,35 +51,45 @@
 					
 				</div>	
 			</form>
-			{{-- <p><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalThem"><i class="fal fa-plus"></i> Thêm</button></p> --}}
 			<div class="table-responsive scrollbar">
 				<table id="DataList" class="table table-bordered table-hover table-sm overflow-hidden">
 					<thead>
 						<tr>
 							<th class="text-nowrap" width="5%">#</th>
-                            <th class="text-nowrap" width="15%">Mã giảng viên</th>
-							<th class="text-nowrap" width="15%">Họ và tên</th>
-							<th class="text-nowrap" width="20%">Định mức giảng dạy</th>
-                            <th class="text-nowrap" width="20%" title="Định mức nghiên cứu khoa học">Định mức NCKH</th>
-                            <th class="text-nowrap" width="15%">Năm học</th>
+							<th class="text-nowrap" width="10%">Mã CBGD</th>
+							<th class="text-nowrap" width="10%">Mã HP</th>
+                            <th class="text-nowrap" width="5%">Nhóm</th>
+							<th class="text-nowrap" width="5%">Tổ TH</th></th>
+                            <th class="text-nowrap" width="5%">Phòng</th>
+							<th class="text-nowrap" width="5%">Sỉ số TKB</th></th>
+                            <th class="text-nowrap" width="5%">Thứ</th>
+							<th class="text-nowrap" width="10%">Tiết bắt đầu</th></th>
+                            <th class="text-nowrap" width="5%">Số tiết</th>
+							<th class="text-nowrap" width="5%">Tổng số tiết</th></th>
+                            <th class="text-nowrap" width="10%">Lớp</th>
+							<th class="text-nowrap" width="10%">Học kì</th></th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($dinhmucgiangvien as $value)
+						@foreach($dulieuthoikhoabieu as $value)
 							<tr>
 								<td class="align-middle">{{ $loop->iteration }}</td>
-								<td class="align-middle">{{ $value->MaGiangVien}}</td>
-								<td class="align-middle">{{ $value->GiangVien->HoVaTen }}</td>
-								<td class="align-middle">{{ $value->DinhMucGiangDay }}</td>
-								<td class="align-middle">{{ $value->DinhMucNCKH }}</td>
-								<td class="align-middle">{{ $value->NamHoc }}</td>						
+								<td class="align-middle">{{ $value->MaGiangVien }}</td>
+								<td class="align-middle">{{ $value->MaHocPhan }}</td>
+                                <td class="align-middle">{{ $value->Nhom }}</td>
+								<td class="align-middle">{{ $value->ToThucHanh }}</td>
+                                <td class="align-middle">{{ $value->Phong }}</td>
+								<td class="align-middle">{{ $value->SiSoTKB }}</td>
+                                <td class="align-middle">{{ $value->Thu }}</td>
+								<td class="align-middle">{{ $value->TietBatDau }}</td>
+                                <td class="align-middle">{{ $value->SoTiet }}</td>
+								<td class="align-middle">{{ $value->TongSoTiet }}</td>
+                                <td class="align-middle">{{ $value->Lop }}</td>
+								<td class="align-middle">{{ $value->HocKy }}</td>
 							</tr>
 						@endforeach
 					</tbody>
 				</table>
-				<div class="mt-1">
-					{{ $dinhmucgiangvien->links() }}
-				</div>
 			</div>
 		</div>
 	</div>

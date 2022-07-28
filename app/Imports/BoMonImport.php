@@ -23,17 +23,19 @@ class BoMonImport implements ToModel, SkipsEmptyRows, WithValidation, WithHeadin
     {
         return new BoMon([
             //
-            'MaBoMon' => $row['mabomon'],
-			'TenBoMon' => $row['tenbomon'],
-            'MaKhoa' => $row['makhoa']
+            'MaBoMon' => $row['f_mabm'],
+            'MaKhoa' => $row['f_makh'],
+			'TenBoMon' => $row['f_tenbmvn']
+            
         ]);
     }
     public function rules(): array
 	{
 		return [
-            '*.mabomon' => 'required', 'string', 'max:5', 'unique:bomon',
-			'*.tenbomon' => 'required', 'string', 'max:191','unique:bomon,TenBoMon',
-            '*.makhoa' => 'required', 'string', 'max:5'
+            '*.f_mabm' => 'required', 'string', 'max:5', 'unique:bomon',
+            '*.f_makh' => 'required', 'string', 'max:5',
+			'*.f_tenbmvn' => 'required', 'string', 'max:191','unique:bomon,TenBoMon'
+            
 		];
 	}
 }

@@ -23,17 +23,17 @@ class NganhImport implements ToModel, SkipsEmptyRows, WithValidation, WithHeadin
     {
         return new Nganh([
             //
-            'MaNganh' => $row['manganh'],
-			'TenNganh' => $row['tennganh'],
-            'MaKhoa' => $row['makhoa']
+            'MaKhoa' => $row['f_makh'],
+            'MaNganh' => $row['f_mang'],
+			'TenNganh' => $row['f_tenngvn']          
         ]);
     }
     public function rules(): array
 	{
 		return [
-			'*.manganh' => 'required', 'string', 'max:5', 'unique:nganh',
-			'*.tennganh' => 'required', 'string', 'max:191','unique:nganh,TenNganh',
-            '*.makhoa' => 'required', 'string', 'max:191'
+			'*.f_mang' => 'required', 'string', 'max:5', 'unique:nganh',
+			'*.f_tenngvn' => 'required', 'string', 'max:191','unique:nganh,TenNganh',
+            '*.f_makh' => 'required', 'string', 'max:191'
 		];
 	}
 }

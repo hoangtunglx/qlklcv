@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BoMonExport;
 use App\Models\BoMon;
 use App\Models\Khoa;
 use Illuminate\Http\Request;
@@ -104,6 +105,6 @@ class BoMonController extends Controller
 	
 	public function getXuat_SupManager()
 	{
-		return Excel::download(new BoMon(), 'bomon.xlsx');
+		return Excel::download(new BoMonExport(), 'bomon.xlsx');
 	}
 }

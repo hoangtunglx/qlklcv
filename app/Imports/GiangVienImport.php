@@ -21,23 +21,24 @@ class GiangVienImport implements ToModel, SkipsEmptyRows, WithValidation, WithHe
     */
     public function model(array $row)
     {
+        $hovaten=$row['f_holotcbv'].' '.$row['f_tencbv'];
         return new GiangVien([
             //
-            'MaGiangVien' => $row['magiangvien'],
-			'HoVaTen' => $row['hovaten'],
+            'MaGiangVien' => $row['f_manv'],
+			'HoVaTen' =>  $hovaten,
             'Email' => $row['email'],
-            'MaBoMon' => $row['mabomon'],
-			'MaNgach' => $row['mangach']
+            'MaBoMon' => $row['f_mabm'],
+			'MaNgach' => $row['nn']
         ]);
     }
     public function rules(): array
 	{
 		return [
-			'*.magiangvien' => ['required', 'string', 'max:10', 'unique:giangvien'],
+			'*.f_manv' => ['required', 'string', 'max:10', 'unique:giangvien'],
 			'*.hovaten' => ['required', 'string', 'max:191'],
             '*.email' => ['required', 'email', 'max:191'],
-            '*.mabomon' => ['required', 'string', 'max:5'],
-            '*.mangach' => ['required', 'string', 'max:10']
+            '*.f_mabm' => ['required', 'string', 'max:5'],
+            '*.nn' => ['required', 'string', 'max:10']
 		];
 	}
 }

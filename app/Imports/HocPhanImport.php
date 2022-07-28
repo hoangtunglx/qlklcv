@@ -23,21 +23,22 @@ class HocPhanImport implements ToModel, SkipsEmptyRows, WithValidation, WithHead
     {
         return new HocPhan([
             //
-            'MaHocPhan' => $row['mahocphan'],
-			'TenHocPhan' => $row['tenhocphan'],
-            'SoTinChi' => $row['sotinchi'],
-            'SoTietLyThuyet' => $row['sotietlythuyet'],
-            'SoTietThucHanh' => $row['sotietthuchanh']
+
+            'MaHocPhan' => $row['f_mamh'],
+			'TenHocPhan' => $row['f_tenmhvn'],
+            'SoTinChi' => $row['f_dvht'],
+            'SoTietLyThuyet' => $row['f_lt'],
+            'SoTietThucHanh' => $row['f_tn']
         ]);
     }
     public function rules(): array
 	{
 		return [
-			'*.mahocphan' => 'required', 'string', 'max:10','unique:HocPhan',
-			'*.tenhocphan' => 'required', 'string', 'max:191',
-			'*.sotinchi' => 'required', 'numeric',
-			'*.sotietlythuyet' => 'required', 'numeric',
-			'*.sotietthuchanh' => 'required','numeric'
+			'*.f_mamh' => 'required', 'string', 'max:10','unique:HocPhan',
+			'*.f_tenmhvn' => 'required', 'string', 'max:191',
+			'*.f_dvht' => 'required', 'numeric',
+			'*.f_lt' => 'required', 'numeric',
+			'*.f_tn' => 'required','numeric'
 		];
 	}
 }

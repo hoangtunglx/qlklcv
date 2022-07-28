@@ -34,13 +34,16 @@ class DinhMucGiangVienController extends Controller
 	}
 	public function getDanhSach_Manager()
 	{
-		$dinhmucgiangvien = DinhMucGiangVien::where("NamHoc", getNamHoc())->paginate(getSoDong());
+		$dinhmucgiangvien = DinhMucGiangVien::where("NamHoc", getNamHoc())
+		->join('giangvien','giangvien.MaGiangVien','=','dinhmucgiangvien.MaGiangVien')
+		->join('bomon','bomon.MaBoMon','=','giangvien.MaBoMon')
+		->where('bomon.MaKhoa', getGV_Khoa())
+		->paginate(getSoDong());
 		$giangvien=GiangVien::all();
-		$bomon=BoMon::all();
-		$khoa=Khoa::all();
+		$bomon=BoMon::where('MaKhoa',getGV_Khoa())->get();
 		$mabomon = '';
 		$makhoa = '';
-		return view('dashboard.manager.danhmuc.dinhmucgiangvien', compact('dinhmucgiangvien','giangvien','bomon','khoa','mabomon','makhoa'));
+		return view('dashboard.manager.danhmuc.dinhmucgiangvien', compact('dinhmucgiangvien','giangvien','bomon','mabomon','makhoa'));
 	}
 	public function getDanhSach_BoMon_SupManager(Request $request)
 	{
@@ -108,11 +111,10 @@ class DinhMucGiangVienController extends Controller
 		->select('dinhmucgiangvien.*')
 		->paginate(getSoDong());
 		$giangvien=GiangVien::all();
-		$bomon=BoMon::all();
-		$khoa=Khoa::all();
+		$bomon=BoMon::where('MaKhoa',getGV_Khoa())->get();
 		$mabomon = $request->MaBoMon;
 		$makhoa = '';
-		return view('dashboard.manager.danhmuc.dinhmucgiangvien', compact('dinhmucgiangvien','giangvien','bomon','khoa','mabomon','makhoa'));
+		return view('dashboard.manager.danhmuc.dinhmucgiangvien', compact('dinhmucgiangvien','giangvien','bomon','mabomon','makhoa'));
 	}
 	public function getDanhSach_User()
 	{
@@ -128,15 +130,14 @@ class DinhMucGiangVienController extends Controller
 		//validate Năm học đối với mỗi user
 		$this->validate($request, [         
 			'DinhMucGiangDay' => ['required', 'numeric', 'min:0'],
-            'DinhMucNCKH' => ['required', 'numeric', 'min:0'],
-            'NamHoc' => ['required', 'string', 'max:9']
+            'DinhMucNCKH' => ['required', 'numeric', 'min:0']
 		]);
 		
 		$orm = new DinhMucGiangVien();
 		$orm->MaGiangVien = $gv->MaGiangVien;
 		$orm->DinhMucGiangDay = $request->DinhMucGiangDay;
         $orm->DinhMucNCKH = $request->DinhMucNCKH;
-        $orm->NamHoc = $request->NamHoc;
+        $orm->NamHoc = getNamHoc();
 		$orm->save();
 		return redirect()->route('user.dinhmucgiangvien');
 	}
@@ -144,13 +145,11 @@ class DinhMucGiangVienController extends Controller
 	{
 		$this->validate($request, [         
 			'DinhMucGiangDay_edit' => ['required', 'numeric', 'min:0'],
-            'DinhMucNCKH_edit' => ['required', 'numeric', 'min:0'],
-            'NamHoc_edit' => ['required', 'string', 'max:9','unique:DinhMucGiangVien,NamHoc,'. $request->ID_edit.',ID']
+            'DinhMucNCKH_edit' => ['required', 'numeric', 'min:0']
 		]);
 		$orm = DinhMucGiangVien::find($request->ID_edit);
 		$orm->DinhMucGiangDay = $request->DinhMucGiangDay_edit;
         $orm->DinhMucNCKH = $request->DinhMucNCKH_edit;
-        $orm->NamHoc = $request->NamHoc_edit;
 		$orm->save();
 		return redirect()->route('user.dinhmucgiangvien');
 	}

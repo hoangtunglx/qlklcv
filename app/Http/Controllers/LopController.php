@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LopExport;
 use App\Models\Khoa;
 use App\Models\Lop;
 use Illuminate\Http\Request;
@@ -96,6 +97,6 @@ class LopController extends Controller
 	
 	public function getXuat_SupManager()
 	{
-		return Excel::download(new Lop(), 'lop.xlsx');
+		return Excel::download(new LopExport(), 'lop.xlsx');
 	}
 }

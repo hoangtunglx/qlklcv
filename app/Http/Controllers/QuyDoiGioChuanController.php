@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\QuyDoiGioChuanExport;
 use App\Models\QuyDoiGioChuan;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class QuyDoiGioChuanController extends Controller
 {
@@ -18,15 +20,14 @@ class QuyDoiGioChuanController extends Controller
 		$this->validate($request, [
         	'ID' => ['required', 'string', 'max:10', 'unique:quydoigiochuan'],
 			'HoatDong' => ['required', 'string', 'max:191'],
-            'GioChuan' => ['required', 'numeric', 'min:0'],
-        	'NamHoc' => ['required', 'string', 'max:9']
+            'GioChuan' => ['required', 'numeric', 'min:0']
 		]);
 		
 		$orm = new QuyDoiGioChuan();
 		$orm->ID = $request->ID;
 		$orm->HoatDong = $request->HoatDong;
 		$orm->GioChuan = $request->GioChuan;
-        $orm->NamHoc = $request->NamHoc;
+        $orm->NamHoc = getNamHoc();
 		$orm->save();
 		return redirect()->route('supmanager.quydoigiochuan');
 	}
@@ -36,16 +37,13 @@ class QuyDoiGioChuanController extends Controller
 		$this->validate($request, [
             'ID_edit' => ['required', 'string', 'max:10', 'unique:quydoigiochuan,ID,'. $request->id_old.',ID'],
             'HoatDong_edit' => ['required', 'string', 'max:191'],
-			'GioChuan_edit' => ['required', 'numeric', 'min:0'],
-            'NamHoc_edit' => ['required', 'string', 'max:9']
-
+			'GioChuan_edit' => ['required', 'numeric', 'min:0']
 		]);
 		
 		$orm = QuyDoiGioChuan::find($request->id_old);
 		$orm->ID = $request->ID_edit;
 		$orm->HoatDong = $request->HoatDong_edit;
 		$orm->GioChuan = $request->GioChuan_edit;
-        $orm->NamHoc = $request->NamHoc_edit;
 		$orm->save();
 		return redirect()->route('supmanager.quydoigiochuan');
 	}
@@ -92,8 +90,8 @@ class QuyDoiGioChuanController extends Controller
 		}
 	}
 	
-	// public function getXuat()
-	// {
-	// 	return Excel::download(new QuyDoiGioChuan(), 'quydoigiochuan.xlsx');
-	// }
+	public function getXuat()
+	{
+		return Excel::download(new QuyDoiGioChuanExport(), 'quydoigiochuan.xlsx');
+	}
 }

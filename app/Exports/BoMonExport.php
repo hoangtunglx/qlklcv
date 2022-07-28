@@ -7,8 +7,9 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class BoMonExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping
+class BoMonExport implements FromCollection, WithHeadings, WithCustomStartCell, WithMapping, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -16,9 +17,10 @@ class BoMonExport implements FromCollection, WithHeadings, WithCustomStartCell, 
     public function headings(): array
 	{
 		return [
-			'MaBoMon',		
-            'TenBoMon',
-            'MaKhoa',
+			'f_mabm',		
+            'f_makh',
+            'f_tenbmvn',
+			'f_tenkhvn'
 		];
 	}
 	
@@ -28,6 +30,7 @@ class BoMonExport implements FromCollection, WithHeadings, WithCustomStartCell, 
 			$row->MaBoMon,
 			$row->TenBoMon,
             $row->MaKhoa,
+			$row->Khoa->TenKhoa
 		];
 	}
 	
